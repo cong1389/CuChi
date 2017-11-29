@@ -1,0 +1,191 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Template.Master.cs" Inherits="Cb.Web.Template" %>
+
+<%@ Register TagPrefix="dgc" TagName="footer" Src="~/Controls/footer.ascx" %>
+
+<!doctype html>
+<html lang="en">
+<head runat="server">
+    <meta name="p:domain_verify" content="026c75f737a52cbd5e652bafba4684bd" />
+    <meta charset="UTF-8" />
+    <!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <!--[if IE 7]>
+		<link rel="stylesheet" href="http://www.VietnamTravelGroup.vn/assets/wp-content/themes/bdltourpackage/stylesheet/ie7-style.css" /> 
+		<link rel="stylesheet" href="http://www.VietnamTravelGroup.vn/assets/wp-content/themes/bdltourpackage/stylesheet/font-awesome/font-awesome-ie7.min.css" /> 
+	<![endif]-->
+
+    <link rel="shortcut icon" href="/Images/favi.png" type="image/x-icon" />
+
+    <style type="text/css">
+        img.wp-smiley,
+        img.emoji {
+            display: inline !important;
+            border: none !important;
+            box-shadow: none !important;
+            height: 1em !important;
+            width: 1em !important;
+            margin: 0 .07em !important;
+            vertical-align: -0.1em !important;
+            background: none !important;
+            padding: 0 !important;
+        }
+    </style>
+    <link rel='stylesheet' href='/assets/wp-content/themes/bdltourpackage/style4235.css?ver=4.4.5' type='text/css' media='all' />
+    <link rel='stylesheet' href='/assets/wp-content/themes/bdltourpackage/stylesheet/foundation-responsive4235.css?ver=4.4.5' type='text/css' media='all' />
+    <link rel='stylesheet' href='/assets/wp-content/themes/bdltourpackage/style-custom4235.css?ver=4.4.5' type='text/css' media='all' />
+
+    <%--<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:300%7CBad+Script:regular&#038;subset=latin,latin-ext' type='text/css' media='all' />--%>
+
+
+    <%--<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Droid+Sans%3An%2Ci%2Cb%2Cbi&amp;subset=latin&amp;ver=4.4.5' type='text/css' media='all' />
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Droid+Serif%3An%2Ci%2Cb%2Cbi&amp;subset=latin&amp;ver=4.4.5' type='text/css' media='all' />
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans%3An%2Ci%2Cb%2Cbi&amp;subset=latin&amp;ver=4.4.5' type='text/css' media='all' />
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto+Condensed%3An%2Ci%2Cb%2Cbi&amp;subset=latin&amp;ver=4.4.5' type='text/css' media='all' />
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:100,300,regular,700,900%7COpen+Sans:300%7CIndie+Flower:regular%7COswald:300,regular,700&amp;subset=latin%2Clatin-ext' type='text/css' media='all' />--%>
+
+    <link rel='stylesheet' href='/assets/wp-content/plugins/LayerSlider/static/css/layerslider9dff.css?ver=5.3.2' type='text/css' media='all' />
+    <link rel='stylesheet' href='/assets/wp-content/plugins/contact-form-7/includes/css/styles5b31.css?ver=4.3.1' type='text/css' media='all' />
+    <link rel='stylesheet' href='/assets/wp-content/plugins/theme-blvd-responsive-google-maps/assets/style5152.css?ver=1.0' type='text/css' media='all' />
+    <link rel='stylesheet' href='/assets/wp-content/themes/bdltourpackage/stylesheet/superfish4235.css?ver=4.4.5' type='text/css' media='all' />
+    <link rel='stylesheet' href='/assets/wp-content/themes/bdltourpackage/stylesheet/fancybox4235.css?ver=4.4.5' type='text/css' media='all' />
+    <link rel='stylesheet' href='/assets/wp-content/themes/bdltourpackage/stylesheet/jquery.fancybox-thumbs4235.css?ver=4.4.5' type='text/css' media='all' />
+    <link rel='stylesheet' href='/assets/wp-content/themes/bdltourpackage/stylesheet/font-awesome/font-awesome4235.css?ver=4.4.5' type='text/css' media='all' />
+    <link rel='stylesheet' href='/assets/wp-content/themes/bdltourpackage/stylesheet/flexslider4235.css?ver=4.4.5' type='text/css' media='all' />
+    <script type='text/javascript' src='/assets/wp-includes/js/jquery/jqueryc1d8.js?ver=1.11.3'></script>
+    <script type='text/javascript' src='/assets/wp-includes/js/jquery/jquery-migrate.min1576.js?ver=1.2.1'></script>
+    <script type='text/javascript' src='/assets/wp-content/plugins/LayerSlider/static/js/greensockcd11.js?ver=1.11.8'></script>
+    <script type='text/javascript' src='/assets/wp-content/plugins/LayerSlider/static/js/layerslider.kreaturamedia.jquery9dff.js?ver=5.3.2'></script>
+    <script type='text/javascript' src='/assets/wp-content/plugins/LayerSlider/static/js/layerslider.transitions9dff.js?ver=5.3.2'></script>
+    <script type='text/javascript' src='/assets/wp-content/plugins/theme-blvd-responsive-google-maps/assets/jquery.gmap.min6aec.js?ver=3.0'></script>
+    <script type='text/javascript' src='/assets/wp-content/themes/bdltourpackage/javascript/jquery.fitvids5152.js?ver=1.0'></script>
+
+    <!--Custom css-->
+    <link rel="stylesheet" type="text/css" href="/Styles/Style.css" media="screen" />
+
+    <!--Alert-->
+    <link href="/Admin/Style/jquery.alerts.css" rel="stylesheet" />
+    <script src="/Admin/JavaScript/jquery.alerts.js"></script>
+
+    <!--jssor-->
+    <script src="/assets/wp-content/plugins/jssor/jssor.js"></script>
+    <script src="/assets/wp-content/plugins/jssor/jssor.slider.js"></script>
+
+    <!--bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/Admin/Components/bootstrap/css/bootstrap.min.css" media="screen" />
+    <script src="/Admin/Components/bootstrap/js/bootstrap.min.js"></script>
+
+    <!--font awesome-->
+    <link href="/Admin/Components/App/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+
+    <!--style package-->
+    <link href="/Styles/style.package.min.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="/Styles/jquery.package.js"></script>
+
+    <!--photobox-->
+    <link rel="stylesheet" type="text/css" href="/assets/wp-content/plugins/photobox/photobox.css" media="screen" />
+    <script type='text/javascript' src='/assets/wp-content/plugins/photobox/jquery.photobox.js'></script>
+
+      <!-- bootstrap-touchspin-->
+    <script type="text/javascript" src="/Admin/Components/bootstrap-touchspin/bootstrap.touchspin.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Admin/Components/bootstrap-touchspin/bootstrap.touchspin.css" />
+
+    <%--<script src="/Styles/custom.js"></script>--%>
+    <%--<link href="/Styles/jquery.treeview.min.css" rel="stylesheet" type="text/css" media="all" />--%>
+    <%--<script src="/Styles/jquery.treeview.min.js"></script>--%>
+
+    <!--Fane page FB-->
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.6";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+</head>
+
+<body class="home page page-id-3896 page-template-default">
+    <form id="aspnetForm" runat="server">
+
+        <div class="body-outer-wrapper ">
+            <div class="body-wrapper">
+
+                <asp:ContentPlaceHolder ID="mainContent" runat="server" />
+
+
+                <dgc:footer ID="footer" runat="server" />
+            </div>
+        </div>
+
+    </form>
+
+    <%--<script type="text/javascript">jQuery(document).ready(function () { });</script>--%>
+    <%--   <script>
+        var getElementsByClassName = function (a, b, c) { if (document.getElementsByClassName) { getElementsByClassName = function (a, b, c) { c = c || document; var d = c.getElementsByClassName(a), e = b ? new RegExp("\\b" + b + "\\b", "i") : null, f = [], g; for (var h = 0, i = d.length; h < i; h += 1) { g = d[h]; if (!e || e.test(g.nodeName)) { f.push(g) } } return f } } else if (document.evaluate) { getElementsByClassName = function (a, b, c) { b = b || "*"; c = c || document; var d = a.split(" "), e = "", f = "http://www.w3.org/1999/xhtml", g = document.documentElement.namespaceURI === f ? f : null, h = [], i, j; for (var k = 0, l = d.length; k < l; k += 1) { e += "[contains(concat(' ', @class, ' '), ' " + d[k] + " ')]" } try { i = document.evaluate(".//" + b + e, c, g, 0, null) } catch (m) { i = document.evaluate(".//" + b + e, c, null, 0, null) } while (j = i.iterateNext()) { h.push(j) } return h } } else { getElementsByClassName = function (a, b, c) { b = b || "*"; c = c || document; var d = a.split(" "), e = [], f = b === "*" && c.all ? c.all : c.getElementsByTagName(b), g, h = [], i; for (var j = 0, k = d.length; j < k; j += 1) { e.push(new RegExp("(^|\\s)" + d[j] + "(\\s|$)")) } for (var l = 0, m = f.length; l < m; l += 1) { g = f[l]; i = false; for (var n = 0, o = e.length; n < o; n += 1) { i = e[n].test(g.className); if (!i) { break } } if (i) { h.push(g) } } return h } } return getElementsByClassName(a, b, c) },
+            dropdowns = getElementsByClassName('dropdown-menu');
+        for (i = 0; i < dropdowns.length; i++)
+            dropdowns[i].onchange = function () { if (this.value != '') window.location.href = this.value; }
+    </script>--%>
+    <script type='text/javascript' src='/assets/wp-content/plugins/contact-form-7/includes/js/jquery.form.mind03d.js?ver=3.51.0-2014.06.20'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        //  var _wpcf7 = { "loaderUrl": "http:\/\/www.VietnamTravelGroup.vn\//assets/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif", "recaptchaEmpty": "Please verify that you are not a robot.", "sending": "Sending ...", "cached": "1" };
+        /* ]]> */
+</script>
+
+    <script src="/Scripts/script.js"></script>
+
+    <script type='text/javascript' src='/assets/wp-content/plugins/contact-form-7/includes/js/scripts5b31.js?ver=4.3.1'></script>
+    <script type='text/javascript' src='/assets/wp-content/themes/bdltourpackage/javascript/superfish5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/assets/wp-content/themes/bdltourpackage/javascript/supersub5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/assets/wp-content/themes/bdltourpackage/javascript/hoverIntent5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/assets/wp-content/themes/bdltourpackage/javascript/jquery.easing5152.js?ver=1.0'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var ATTR = { "enable": "enable", "width": "80", "height": "45" };
+        /* ]]> */
+</script>
+    <script type='text/javascript' src='/assets/wp-content/themes/bdltourpackage/javascript/jquery.fancybox5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/assets/wp-content/themes/bdltourpackage/javascript/jquery.fancybox-media5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/assets/wp-content/themes/bdltourpackage/javascript/jquery.fancybox-thumbs5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/assets/wp-content/themes/bdltourpackage/javascript/gdl-scripts5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/assets/wp-content/themes/bdltourpackage/javascript/jquery.cycle5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/assets/wp-content/themes/bdltourpackage/javascript/blog-carousel5152.js?ver=1.0'></script>
+    <%--<script type='text/javascript'>
+        /* <![CDATA[ */
+        var FLEX = { "animation": "fade", "pauseOnHover": "enable", "controlNav": "disable", "directionNav": "enable", "animationSpeed": "600", "slideshowSpeed": "12000", "pauseOnAction": "disable", "thumbnail_width": "75", "thumbnail_height": "50", "controlsContainer": ".flexslider" };
+        /* ]]> */
+</script>--%>
+    <%--  // <script type='text/javascript' src='/assets/wp-content/themes/bdltourpackage/javascript/jquery.flexslider5152.js?ver=1.0'></script>--%>
+    <script type='text/javascript' src='/assets/wp-includes/js/wp-embed.min4235.js?ver=4.4.5'></script>
+
+    <!--date-time-pickers-->
+    <%--   <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+    <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>--%>
+
+    <%--<script src="http://code.jquery.com/jquery-1.10.2.js"></script>--%>
+
+
+    <!--SlickNav-->
+    <%--<link rel="stylesheet" type="text/css" href="/assets/wp-content/plugins/SlickNav/slicknav.min.css" media="screen" />
+    <script src="/assets/wp-content/plugins/SlickNav/jquery.slicknav.min.js"></script>
+    <script src="/assets/wp-content/plugins/SlickNav/modernizr.min.js"></script>--%>
+
+     <!-- jquery-idle-timeout -->
+    <script type="text/javascript" src="/Admin/Components/jquery-idle-timeout/jquery.idletimeout.js"></script>
+    <script type="text/javascript" src="/Admin/Components/jquery-idle-timeout/jquery.idletimer.js"></script>
+    <script type="text/javascript" src="/Admin/Components/jquery-idle-timeout/ui-idletimeout.min.js"></script>
+
+</body>
+</html>
+
