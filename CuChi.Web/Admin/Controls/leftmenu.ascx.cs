@@ -69,6 +69,8 @@ namespace Cb.Web.Admin.Controls
 
             hypExchageRate.HRef = LinkHelper.GetAdminLink("exchangerate");
 
+            hypManageGallery.HRef = LinkHelper.GetAdminLink("gallery");
+
         }
 
         #endregion

@@ -56,6 +56,11 @@
                         <div class="title-parent">
                             <p><a runat="server" id="hypManageItem"><i class="fa fa-lg fa-fw fa-tag"></i>Sản phẩm</a></p>
                         </div>
+
+                          <div class="title-parent">
+                            <p><a runat="server" id="hypManageGallery"><i class="fa fa-lg fa-fw fa-tag"></i>Gallery</a></p>
+                        </div>
+
                         <div class="title-parent">
                             <p><a runat="server" id="hypSlide"><i class="fa fa-lg fa-fw fa-folder-open"></i>Slider - Partner</a></p>
                         </div>

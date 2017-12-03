@@ -21,9 +21,9 @@ using System.IO;
 using System.Configuration;
 using Cb.Utility;
 
-namespace Cb.Web.Admin.Pages.Products
+namespace Cb.Web.Admin.Pages.Gallerys
 {
-    public partial class admin_product : System.Web.UI.UserControl
+    public partial class admin_gallery : System.Web.UI.UserControl
     {
         #region Parameter
 
@@ -148,28 +148,15 @@ namespace Cb.Web.Admin.Pages.Products
         /// <returns></returns>
         private int GetList(byte langid, string content, string cateId, int begin, int end)
         {
-            ProductCategoryBLL newsCateBll = new ProductCategoryBLL();
-            IList<PNK_ProductCategory> lstPicture = newsCateBll.GetAllChild(DBConvert.ParseInt(ConfigurationManager.AppSettings["parentIdContact"]), true);
-            
             int total;
             IList<PNK_Product> lst = pcBll.GetList(1, string.Empty, string.Empty, cateId, content, null, string.Empty, begin, end, out total);
 
             if (lst != null && lst.Count > 0)
             {
-                //Loại bỏ những productCategory thuộc nhóm Gallery có Id=64
-                IList<PNK_Product> lst1 =lst;
-                for (int i = 0; i < lstPicture.Count; i++)
-                {
-                     lst1 = (from x in lst1
-                             where !x.CategoryId.ToString().Contains(lstPicture[i].Id.ToString())
-                                               select x).ToList();
-                }
-                
-
-                this.records = DBConvert.ParseString(lst1.Count);
+                this.records = DBConvert.ParseString(lst.Count);
                 this.pager.PageSize = DBConvert.ParseInt(ConfigurationManager.AppSettings["PageSizeAdmin"]);
                 this.pager.ItemCount = total;
-                this.rptResult.DataSource = lst1;
+                this.rptResult.DataSource = lst;
                 this.rptResult.DataBind();
 
             }
@@ -228,7 +215,7 @@ namespace Cb.Web.Admin.Pages.Products
         /// </summary>
         private void Add()
         {
-            string url = LinkHelper.GetAdminLink("edit_product");
+            string url = LinkHelper.GetAdminLink("edit_gallery");
             Response.Redirect(url);
         }
 
@@ -244,11 +231,11 @@ namespace Cb.Web.Admin.Pages.Products
             if (cid.IndexOf(',') >= 0)
             {
                 arrStr = cid.Split(',');
-                link = LinkHelper.GetAdminLink("edit_product", arrStr[0]);
-                //link = string.Format(SiteNavigation.link_adminPage_editproductcategory, arrStr[0]);
+                link = LinkHelper.GetAdminLink("edit_gallery", arrStr[0]);
+                //link = string.Format(SiteNavigation.link_adminPage_editgallerycategory, arrStr[0]);
             }
             else
-                link = LinkHelper.GetAdminLink("edit_product", cid);
+                link = LinkHelper.GetAdminLink("edit_gallery", cid);
             Response.Redirect(link);
         }
 
@@ -273,11 +260,11 @@ namespace Cb.Web.Admin.Pages.Products
         {
             if (cid != null)
             {
-                PNK_Product productCatObj = new PNK_Product();
+                PNK_Product galleryCatObj = new PNK_Product();
                 string[] fields = { "Id" };
-                productCatObj.Id = DBConvert.ParseInt(cid);
-                productCatObj = genericBLL.Load(productCatObj, new string[] { "Id" });
-                //string f = Path.Combine(Server.MapPath(Constant.DSC.ProductUploadFolder), strHeaderProduct.Text.Trim().Remove(0, 5), productCatObj.Image);
+                galleryCatObj.Id = DBConvert.ParseInt(cid);
+                galleryCatObj = genericBLL.Load(galleryCatObj, new string[] { "Id" });
+                //string f = Path.Combine(Server.MapPath(Constant.DSC.ProductUploadFolder), strHeaderProduct.Text.Trim().Remove(0, 5), galleryCatObj.Image);
                 //if (File.Exists(f))
                 //{
                 //    try
@@ -290,10 +277,10 @@ namespace Cb.Web.Admin.Pages.Products
                 string link, url;
                 if (generic2CBLL.Delete(cid))
                 {
-                    link = LinkHelper.GetAdminMsgLink("product", cid, "delete");
+                    link = LinkHelper.GetAdminMsgLink("gallery", cid, "delete");
                 }
                 else
-                    link = LinkHelper.GetAdminMsgLink("product", cid, "delfail");
+                    link = LinkHelper.GetAdminMsgLink("gallery", cid, "delfail");
                 url = Utils.CombineUrl(template_path, link);
                 Response.Redirect(url);
             }
@@ -327,18 +314,18 @@ namespace Cb.Web.Admin.Pages.Products
                 if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
                 {
                     HtmlInputButton btId = (HtmlInputButton)item.FindControl("btId");
-                    PNK_Product productCat = new PNK_Product();
-                    productCat.Id = DBConvert.ParseInt(btId.Value);
-                    productCat = genericBLL.Load(productCat, new string[] { "Id" });
+                    PNK_Product galleryCat = new PNK_Product();
+                    galleryCat.Id = DBConvert.ParseInt(btId.Value);
+                    galleryCat = genericBLL.Load(galleryCat, new string[] { "Id" });
                     HtmlInputText txtOrder = (HtmlInputText)item.FindControl("txtOrder");
                     if (txtOrder != null)
                     {
                         try
                         {
-                            productCat.Ordering = DBConvert.ParseInt(txtOrder.Value);
-                            if (productCat.Ordering > 0)
+                            galleryCat.Ordering = DBConvert.ParseInt(txtOrder.Value);
+                            if (galleryCat.Ordering > 0)
                             {
-                                genericBLL.Update(productCat, productCat, new string[] { "Id" });
+                                genericBLL.Update(galleryCat, galleryCat, new string[] { "Id" });
                             }
                         }
                         catch { }
@@ -382,7 +369,7 @@ namespace Cb.Web.Admin.Pages.Products
         /// </summary>
         private void BindNewsCategory()
         {
-            admin_editproduct.GetDataDropDownCategory(drpCategory);
+            admin_editgallery.GetDataDropDownCategory(drpCategory);
             //drpCategory.SelectedIndex = 0;
             //drpCategory.SelectedIndex = drpCategory.Items.IndexOf(drpCategory.Items.FindByValue(ConfigurationManager.AppSettings["parentIdLeture  "]));
             //drpCategory.Attributes.Add("disabled", "disabled");
@@ -398,21 +385,15 @@ namespace Cb.Web.Admin.Pages.Products
             {
                 ProductCategoryBLL newsCateBll = new ProductCategoryBLL();
                 IList<PNK_ProductCategory> lst = newsCateBll.GetAllChild(DBConvert.ParseInt(drpCategory.SelectedValue), true);
-
-                if (lst == null && lst.Count == 0)
-                {
-                    return null;
-                }
-
-                //Loại bỏ những productCategory thuộc nhóm Gallery có Id=64
-                lst = lst.Where(x => x.ParentId != DBConvert.ParseInt(ConfigurationManager.AppSettings["parentIdContact"])
-                && x.ProductCategoryDesc.Id != DBConvert.ParseInt(ConfigurationManager.AppSettings["parentIdContact"])).ToList();
-
+                
                 arrId = arrId + Utils.ArrayToString<PNK_ProductCategory>((List<PNK_ProductCategory>)lst, "Id", ",");
             }
             else
             {
-                arrId = string.Empty;
+                ProductCategoryBLL newsCateBll = new ProductCategoryBLL();
+                IList<PNK_ProductCategory> lst = newsCateBll.GetAllChild(DBConvert.ParseInt(ConfigurationManager.AppSettings["parentIdContact"]), true);
+
+                arrId = arrId + Utils.ArrayToString<PNK_ProductCategory>((List<PNK_ProductCategory>)lst, "Id", ",");
             }
             return arrId;// !string.IsNullOrEmpty(arrId) ? arrId : "-1011";
         }
@@ -451,13 +432,13 @@ namespace Cb.Web.Admin.Pages.Products
         {
             InitPage();
 
-            strHeaderProduct.Text = drpCategory.SelectedItem.Text;
+            strHeaderGallery.Text = drpCategory.SelectedItem.Text;
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
             SaveOrder();
-            string url = Utils.CombineUrl(template_path, LinkHelper.GetAdminLink("product"));
+            string url = Utils.CombineUrl(template_path, LinkHelper.GetAdminLink("gallery"));
             Response.Redirect(url);
         }
 
@@ -553,7 +534,7 @@ namespace Cb.Web.Admin.Pages.Products
                     //set link
                     HyperLink hdflink = new HyperLink();
                     hdflink = (HyperLink)e.Item.FindControl("hdflink");
-                    hypBaseImage.HRef = hdflink.NavigateUrl = template_path + LinkHelper.GetAdminLink("edit_product", data.CategoryId.ToString(), data.Id.ToString());
+                    hypBaseImage.HRef = hdflink.NavigateUrl = template_path + LinkHelper.GetAdminLink("edit_gallery", data.CategoryId.ToString(), data.Id.ToString());
                     //HtmlTableCell td = (HtmlTableCell)e.Item.FindControl("tdName");
                     //td.Attributes.Add("onclick", string.Format("listItemTask('cb{0}', 'edit')", e.Item.ItemIndex));
                     //td = (HtmlTableCell)e.Item.FindControl("trUpdateDate");

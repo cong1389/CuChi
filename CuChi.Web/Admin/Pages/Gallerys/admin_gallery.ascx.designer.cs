@@ -7,171 +7,189 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cb.Web.Admin.Controls {
+namespace Cb.Web.Admin.Pages.Gallerys {
     
     
-    public partial class leftmenu {
+    public partial class admin_gallery {
         
         /// <summary>
-        /// hypLogo control.
+        /// ltrAdminAddNew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypLogo;
+        protected global::System.Web.UI.WebControls.Literal ltrAdminAddNew;
         
         /// <summary>
-        /// imgLogo control.
+        /// ltrAdminPublish control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgLogo;
+        protected global::System.Web.UI.WebControls.Literal ltrAdminPublish;
         
         /// <summary>
-        /// hypPage control.
+        /// ltrAminUnPublish control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypPage;
+        protected global::System.Web.UI.WebControls.Literal ltrAminUnPublish;
         
         /// <summary>
-        /// hypManageUser control.
+        /// ltrAdminEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypManageUser;
+        protected global::System.Web.UI.WebControls.Literal ltrAdminEdit;
         
         /// <summary>
-        /// hypSeo control.
+        /// ltrAdminDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypSeo;
+        protected global::System.Web.UI.WebControls.Literal ltrAdminDelete;
         
         /// <summary>
-        /// hypConfiguration control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypConfiguration;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnSave;
         
         /// <summary>
-        /// hypClearCache control.
+        /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypClearCache;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// hypManageCategories control.
+        /// strHeaderGallery control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypManageCategories;
+        protected global::System.Web.UI.WebControls.Literal strHeaderGallery;
         
         /// <summary>
-        /// hypManageItem control.
+        /// drpCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypManageItem;
+        protected global::System.Web.UI.WebControls.DropDownList drpCategory;
         
         /// <summary>
-        /// hypManageGallery control.
+        /// search control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypManageGallery;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText search;
         
         /// <summary>
-        /// hypSlide control.
+        /// btnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypSlide;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnSearch;
         
         /// <summary>
-        /// hypContentStatic control.
+        /// ltrAdminHeaderGalleryCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypContentStatic;
+        protected global::System.Web.UI.WebControls.Literal ltrAdminHeaderGalleryCategory;
         
         /// <summary>
-        /// hypManageBooking control.
+        /// ltrListServices control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypManageBooking;
+        protected global::System.Web.UI.WebControls.Literal ltrListServices;
         
         /// <summary>
-        /// hypManageBookingPrice control.
+        /// ltrAdminHeaderImg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypManageBookingPrice;
+        protected global::System.Web.UI.WebControls.Literal ltrAdminHeaderImg;
         
         /// <summary>
-        /// hypTourPriceClass control.
+        /// ltrAdminHeaderOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypTourPriceClass;
+        protected global::System.Web.UI.WebControls.Literal ltrAdminHeaderOrder;
         
         /// <summary>
-        /// hypManageBookingGroup control.
+        /// ltrAdminHeaderDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypManageBookingGroup;
+        protected global::System.Web.UI.WebControls.Literal ltrAdminHeaderDate;
         
         /// <summary>
-        /// hypManageCountry control.
+        /// ltrAdminHeaderPublic control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypManageCountry;
+        protected global::System.Web.UI.WebControls.Literal ltrAdminHeaderPublic;
         
         /// <summary>
-        /// hypExchageRate control.
+        /// rptResult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor hypExchageRate;
+        protected global::System.Web.UI.WebControls.Repeater rptResult;
+        
+        /// <summary>
+        /// pager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Cb.WebControls.Pager pager;
+        
+        /// <summary>
+        /// UpdatePanelAnimationExtender1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.UpdatePanelAnimationExtender UpdatePanelAnimationExtender1;
     }
 }

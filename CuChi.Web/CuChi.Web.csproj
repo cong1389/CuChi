@@ -329,6 +329,8 @@
     <Content Include="Admin\Pages\ContentStatic\admin_editcontentstatic.ascx" />
     <Content Include="Admin\Pages\Booking\admin_booking.ascx" />
     <Content Include="Admin\Pages\Booking\admin_editbooking.ascx" />
+    <Content Include="Admin\Pages\Gallerys\admin_editgallery.ascx" />
+    <Content Include="Admin\Pages\Gallerys\admin_gallery.ascx" />
     <Content Include="Admin\Pages\ProgramTour\admin_programtour.ascx" />
     <Content Include="Admin\Pages\ProgramTour\admin_editprogramtour.ascx" />
     <Content Include="Admin\Pages\home.ascx" />
@@ -729,6 +731,20 @@
     </Compile>
     <Compile Include="Admin\Pages\Booking\admin_editbooking.ascx.designer.cs">
       <DependentUpon>admin_editbooking.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Pages\Gallerys\admin_editgallery.ascx.cs">
+      <DependentUpon>admin_editgallery.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Pages\Gallerys\admin_editgallery.ascx.designer.cs">
+      <DependentUpon>admin_editgallery.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Pages\Gallerys\admin_gallery.ascx.cs">
+      <DependentUpon>admin_gallery.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Pages\Gallerys\admin_gallery.ascx.designer.cs">
+      <DependentUpon>admin_gallery.ascx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Pages\ProgramTour\admin_programtour.ascx.cs">
       <DependentUpon>admin_programtour.ascx</DependentUpon>

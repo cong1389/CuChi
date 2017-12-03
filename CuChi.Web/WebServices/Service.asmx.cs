@@ -17,6 +17,7 @@ using System.Data;
 using Newtonsoft.Json;
 using Cb.Utility;
 using System.Net;
+using System.Threading;
 
 namespace Cb.Web.WebServices
 {
@@ -39,6 +40,9 @@ namespace Cb.Web.WebServices
         [WebMethod]
         public object[] GetBooking_Person(string productId, string priceClassId, string groupType, string adultQuantity, string childQuantity, string infantQuantity)
         {
+            Thread.CurrentThread.CurrentCulture =new CultureInfo("en-US");
+            NumberStyles style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+
             string result = "Call";
             object[] o = new object[11];
 
@@ -64,7 +68,8 @@ namespace Cb.Web.WebServices
                 {
                     result = ds.Tables[0].Rows[0][0].ToString();//Total
                     decimal cost, tax, finalCost, exchangeCost;
-                    cost = DBConvert.ParseDecimal(result);
+
+                    cost = decimal.Parse(result, CultureInfo.InvariantCulture.NumberFormat);
                     tax = (15 * cost) / 100;
                     finalCost = cost + tax;
 
@@ -76,15 +81,15 @@ namespace Cb.Web.WebServices
                     exchangeCost = GetExchangeRate();
                     o[3] = FormatHelper.FormatDonviTinh(DBConvert.ParseDouble(finalCost * exchangeCost), enuCostId.dong, ci);
 
-                    o[4] = ds.Tables[0].Rows[0]["AdultPrice"].ToString();
-                    o[5] = ds.Tables[0].Rows[0]["AdultSum"].ToString();
+                    o[4] = decimal.Parse(ds.Tables[0].Rows[0]["AdultPrice"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                    o[5] = decimal.Parse(ds.Tables[0].Rows[0]["AdultSum"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
 
-                    o[6] = ds.Tables[0].Rows[0]["ChildPrice"].ToString();
-                    o[7] = ds.Tables[0].Rows[0]["ChildSum"].ToString();
+                    o[6] = decimal.Parse(ds.Tables[0].Rows[0]["ChildPrice"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                    o[7] = decimal.Parse(ds.Tables[0].Rows[0]["ChildSum"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
 
-                    o[8] = ds.Tables[0].Rows[0]["InfantPrice"].ToString();
-                    o[9] = ds.Tables[0].Rows[0]["InfantSum"].ToString();
-                    o[10] = DBConvert.ParseDouble(finalCost * exchangeCost);//Giá đã chuyển sang vnđ
+                    o[8] = decimal.Parse(ds.Tables[0].Rows[0]["InfantPrice"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                    o[9] = decimal.Parse(ds.Tables[0].Rows[0]["InfantSum"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                    o[10] = decimal.Parse((finalCost * exchangeCost).ToString(), CultureInfo.InvariantCulture.NumberFormat);//Giá đã chuyển sang vnđ
                 }
             }
             catch (Exception ex)
@@ -155,7 +160,7 @@ namespace Cb.Web.WebServices
             }
             catch (Exception ex)
             {
-                string msg=ex.Message;
+                string msg = ex.Message;
             }
             return amount;
         }

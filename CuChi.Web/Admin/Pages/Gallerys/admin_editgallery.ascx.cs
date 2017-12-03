@@ -37,9 +37,9 @@ using System.Net;
 using System.Drawing;
 using Cb.Utility;
 
-namespace Cb.Web.Admin.Pages.Products
+namespace Cb.Web.Admin.Pages.Gallerys
 {
-    public partial class admin_editproduct : DGCUserControl
+    public partial class admin_editgallery : DGCUserControl
     {
         #region Parameter
 
@@ -47,8 +47,8 @@ namespace Cb.Web.Admin.Pages.Products
         private Generic<PNK_ProductDesc> genericDescBLL;
         private Generic2C<PNK_Product, PNK_ProductDesc> generic2CBLL;
 
-        protected int productcategoryId = int.MinValue;
-        string productCategoryName = string.Empty;
+        protected int gallerycategoryId = int.MinValue;
+        string galleryCategoryName = string.Empty;
         protected string template_path;
 
         private string filenameUpload
@@ -154,11 +154,11 @@ namespace Cb.Web.Admin.Pages.Products
             genericDescBLL = new Generic<PNK_ProductDesc>();
             categoryId = Utils.GetParameter("cid", string.Empty);
             id = Utils.GetParameter("id", string.Empty);
-            productcategoryId = id == string.Empty ? int.MinValue : DBConvert.ParseInt(id);
+            gallerycategoryId = id == string.Empty ? int.MinValue : DBConvert.ParseInt(id);
             template_path = WebUtils.GetWebPath();
 
             //Show tab upload file khi đã cập nhật vào bảng
-            if (productcategoryId == int.MinValue)
+            if (gallerycategoryId == int.MinValue)
             {
                 block_bookingprice.Visible = false;
                 ucMessageEmty9.MessageContent = LocalizationUtility.GetText("MessageEmty");
@@ -275,55 +275,55 @@ namespace Cb.Web.Admin.Pages.Products
         /// </summary>
         private void ShowProduct()
         {
-            if (this.productcategoryId != int.MinValue)
+            if (this.gallerycategoryId != int.MinValue)
             {
-                PNK_Product productcatObj = new PNK_Product();
+                PNK_Product gallerycatObj = new PNK_Product();
                 string[] fields = { "Id" };
-                productcatObj.Id = this.productcategoryId;
-                productcatObj = generic2CBLL.Load(productcatObj, fields, Constant.DB.LangId);
-                chkPublished.Checked = productcatObj.Published == "1" ? true : false;
-                chkPublishedHot.Checked = productcatObj.Hot == "1" ? true : false;
-                chkPublishedFeature.Checked = productcatObj.Feature == "1" ? true : false;
-                // chkNewInHome.Checked = productcatObj.Bathroom == "1" ? true : false;
+                gallerycatObj.Id = this.gallerycategoryId;
+                gallerycatObj = generic2CBLL.Load(gallerycatObj, fields, Constant.DB.LangId);
+                chkPublished.Checked = gallerycatObj.Published == "1" ? true : false;
+                chkPublishedHot.Checked = gallerycatObj.Hot == "1" ? true : false;
+                chkPublishedFeature.Checked = gallerycatObj.Feature == "1" ? true : false;
+                // chkNewInHome.Checked = gallerycatObj.Bathroom == "1" ? true : false;
 
-                txtBedRoom.Value = DBConvert.ParseString(productcatObj.Bedroom);
+                txtBedRoom.Value = DBConvert.ParseString(gallerycatObj.Bedroom);
 
-                txtToDate.Text = productcatObj.Code;
-                txtStatus.Value = productcatObj.Status;
+                txtToDate.Text = gallerycatObj.Code;
+                txtStatus.Value = gallerycatObj.Status;
                 try
                 {
-                    this.drpProvince.SelectedValue = productcatObj.Province == string.Empty ? "" : drpProvince.Items.FindByText(productcatObj.Province).Value;
-                    //this.drpDistrict.SelectedValue = productcatObj.District == string.Empty ? "" : drpDistrict.Items.FindByText(productcatObj.District).Value;
+                    this.drpProvince.SelectedValue = gallerycatObj.Province == string.Empty ? "" : drpProvince.Items.FindByText(gallerycatObj.Province).Value;
+                    //this.drpDistrict.SelectedValue = gallerycatObj.District == string.Empty ? "" : drpDistrict.Items.FindByText(gallerycatObj.District).Value;
                 }
                 catch (Exception)
                 {
                     drpProvince.SelectedIndex = 0;
                 }
-                this.drpCategory.SelectedValue = productcatObj.CategoryId.ToString();
+                this.drpCategory.SelectedValue = gallerycatObj.CategoryId.ToString();
 
-                chkProjectNew.Checked = productcatObj.Price == "1" ? true : false;
+                chkProjectNew.Checked = gallerycatObj.Price == "1" ? true : false;
 
-                drpCost.SelectedValue = DBConvert.ParseString(productcatObj.Cost);
-                txtWebsite.Text = productcatObj.Website;
-                txtPost.Text = productcatObj.Post;
+                drpCost.SelectedValue = DBConvert.ParseString(gallerycatObj.Cost);
+                txtWebsite.Text = gallerycatObj.Website;
+                txtPost.Text = gallerycatObj.Post;
 
-                txtLatitude.Value = productcatObj.Latitude;
-                txtLongitude.Value = productcatObj.Longitude;
-                txtPage.Text = productcatObj.Page == "" ? ConfigurationManager.AppSettings["pagePathProductDetail"] : productcatObj.Page;
+                txtLatitude.Value = gallerycatObj.Latitude;
+                txtLongitude.Value = gallerycatObj.Longitude;
+                txtPage.Text = gallerycatObj.Page == "" ? ConfigurationManager.AppSettings["pagePathProductDetail"] : gallerycatObj.Page;
 
                 #region Set image
 
-                block_baseimage.ImageName = productcatObj.Image;
+                block_baseimage.ImageName = gallerycatObj.Image;
 
-                if (productcatObj.ImageType == 1 || productcatObj.ImageType == null)
+                if (gallerycatObj.ImageType == 1 || gallerycatObj.ImageType == null)
                 {
                     HtmlControl rdImage = block_baseimage.FindControl("rdImage") as HtmlControl;
                     rdImage.Attributes["checked"] = "checked";
                 }
-                if (productcatObj.ImageType == 2)
+                if (gallerycatObj.ImageType == 2)
                 {
                     HtmlControl txtFontName = block_baseimage.FindControl("txtFontName") as HtmlControl;
-                    txtFontName.Attributes["value"] = productcatObj.ImageFont;
+                    txtFontName.Attributes["value"] = gallerycatObj.ImageFont;
 
                     HtmlControl rdImageFont = block_baseimage.FindControl("rdImageFont") as HtmlControl;
                     rdImageFont.Attributes["checked"] = "checked";
@@ -331,19 +331,19 @@ namespace Cb.Web.Admin.Pages.Products
 
                 try
                 {
-                    cboArea.SelectedValue = productcatObj.Area == string.Empty ? "1" : cboArea.Items.FindByText(productcatObj.Area).Value;
+                    cboArea.SelectedValue = gallerycatObj.Area == string.Empty ? "1" : cboArea.Items.FindByText(gallerycatObj.Area).Value;
                 }
                 catch (Exception)
                 {
                     cboArea.SelectedIndex = 0;
                 }
-                //cboArea.Items.FindByText(productcatObj.Area).Selected = true;
+                //cboArea.Items.FindByText(gallerycatObj.Area).Selected = true;
 
                 #endregion
 
-                block_uploadfile.ImageName = productcatObj.Bathroom;
+                block_uploadfile.ImageName = gallerycatObj.Bathroom;
 
-                IList<PNK_ProductDesc> lst = genericDescBLL.GetAllBy(new PNK_ProductDesc(), string.Format(" where mainid = {0}", this.productcategoryId), null);
+                IList<PNK_ProductDesc> lst = genericDescBLL.GetAllBy(new PNK_ProductDesc(), string.Format(" where mainid = {0}", this.gallerycategoryId), null);
                 foreach (PNK_ProductDesc item in lst)
                 {
                     switch (item.LangId)
@@ -413,67 +413,67 @@ namespace Cb.Web.Admin.Pages.Products
         /// </summary>
         /// <param name="userObj"></param>
         /// <returns></returns>
-        private PNK_Product GetDataObjectParent(PNK_Product productcatObj)
+        private PNK_Product GetDataObjectParent(PNK_Product gallerycatObj)
         {
             try
             {
-                productcatObj.Published = chkPublished.Checked ? "1" : "0";
-                productcatObj.Hot = chkPublishedHot.Checked ? "1" : "0";
-                productcatObj.Feature = chkPublishedFeature.Checked ? "1" : "0";
-                productcatObj.Price = chkProjectNew.Checked ? "1" : "0";
+                gallerycatObj.Published = chkPublished.Checked ? "1" : "0";
+                gallerycatObj.Hot = chkPublishedHot.Checked ? "1" : "0";
+                gallerycatObj.Feature = chkPublishedFeature.Checked ? "1" : "0";
+                gallerycatObj.Price = chkProjectNew.Checked ? "1" : "0";
 
                 //File upload
-                //   productcatObj.Bathroom = fileUpload1.FileName;
+                //   gallerycatObj.Bathroom = fileUpload1.FileName;
 
-                productcatObj.Cost = drpCost.SelectedValue;
-                //productcatObj.District = drpDistrict.SelectedItem == null ? string.Empty : drpDistrict.SelectedItem.Text;
-                productcatObj.Bedroom = txtBedRoom.Value;
+                gallerycatObj.Cost = drpCost.SelectedValue;
+                //gallerycatObj.District = drpDistrict.SelectedItem == null ? string.Empty : drpDistrict.SelectedItem.Text;
+                gallerycatObj.Bedroom = txtBedRoom.Value;
 
-                //productcatObj.Code = txtToDate.Text;
-                productcatObj.Area = cboArea.SelectedItem.Text;
+                //gallerycatObj.Code = txtToDate.Text;
+                gallerycatObj.Area = cboArea.SelectedItem.Text;
 
                 //nguyên giá
-                productcatObj.Website = txtWebsite.Text;
+                gallerycatObj.Website = txtWebsite.Text;
                 //giá khuyến mãi
-                productcatObj.Post = txtPost.Text;
+                gallerycatObj.Post = txtPost.Text;
                 //Điểm đến
-                productcatObj.Status = txtStatus.Value;
+                gallerycatObj.Status = txtStatus.Value;
 
-                productcatObj.Province = drpProvince.SelectedItem == null ? string.Empty : drpProvince.SelectedItem.Text;
-                productcatObj.UpdateDate = DateTime.Now;
-                productcatObj.CategoryId = DBConvert.ParseInt(drpCategory.SelectedValue);
+                gallerycatObj.Province = drpProvince.SelectedItem == null ? string.Empty : drpProvince.SelectedItem.Text;
+                gallerycatObj.UpdateDate = DateTime.Now;
+                gallerycatObj.CategoryId = DBConvert.ParseInt(drpCategory.SelectedValue);
 
 
-                productcatObj.Longitude = txtLongitude.Value;//Kinh do   
-                productcatObj.Latitude = txtLatitude.Value;
-                productcatObj.Page = txtPage.Text.Trim();
+                gallerycatObj.Longitude = txtLongitude.Value;//Kinh do   
+                gallerycatObj.Latitude = txtLatitude.Value;
+                gallerycatObj.Page = txtPage.Text.Trim();
 
                 //update by
                 if (Session[Global.SESS_USER] != null)
                 {
                     PNK_User user = (PNK_User)Session[Global.SESS_USER];
-                    productcatObj.UpdateBy = user.Username;
+                    gallerycatObj.UpdateBy = user.Username;
                 }
 
                 #region Get image
 
                 HtmlControl txtFontName = block_baseimage.FindControl("txtFontName") as HtmlControl;
-                productcatObj.ImageFont = string.IsNullOrEmpty(txtFontName.Attributes["value"]) == true ? string.Empty : txtFontName.Attributes["value"];
+                gallerycatObj.ImageFont = string.IsNullOrEmpty(txtFontName.Attributes["value"]) == true ? string.Empty : txtFontName.Attributes["value"];
 
                 HtmlControl rdImageFont = block_baseimage.FindControl("rdImageFont") as HtmlControl;
                 if (rdImageFont != null && rdImageFont.Attributes["checked"] == "checked")
-                    productcatObj.ImageType = DBConvert.ParseInt(rdImageFont.Attributes["value"]);
+                    gallerycatObj.ImageType = DBConvert.ParseInt(rdImageFont.Attributes["value"]);
                 else
-                    productcatObj.ImageType = 1;
+                    gallerycatObj.ImageType = 1;
 
                 HtmlControl hddImageName = block_baseimage.FindControl("hddImageName") as HtmlControl;
                 if (hddImageName != null && hddImageName.Attributes["value"] != null)
                 {
-                    productcatObj.Image = hddImageName.Attributes["value"].ToString();
+                    gallerycatObj.Image = hddImageName.Attributes["value"].ToString();
                 }
                 else
                 {
-                    productcatObj.Image = "";
+                    gallerycatObj.Image = "";
                 }
 
                 #endregion
@@ -481,20 +481,20 @@ namespace Cb.Web.Admin.Pages.Products
                 HtmlControl hddNameFileUpload = block_uploadfile.FindControl("hddNameFileUpload") as HtmlControl;
                 if (hddNameFileUpload != null && hddNameFileUpload.Attributes["value"] != null)
                 {
-                    productcatObj.Bathroom = hddNameFileUpload.Attributes["value"].ToString();
+                    gallerycatObj.Bathroom = hddNameFileUpload.Attributes["value"].ToString();
                 }
                 else
                 {
-                    productcatObj.Bathroom = "";
+                    gallerycatObj.Bathroom = "";
                 }
 
             }
             catch (Exception ex)
             {
-                Write2Log.WriteLogs("GetDataObjectParent", "admin_editproduct", ex.Message);
+                Write2Log.WriteLogs("GetDataObjectParent", "admin_editgallery", ex.Message);
             }
 
-            return productcatObj;
+            return gallerycatObj;
         }
 
         /// <summary>
@@ -502,55 +502,55 @@ namespace Cb.Web.Admin.Pages.Products
         /// </summary>
         /// <param name="contdescObj"></param>
         /// <returns></returns>
-        private PNK_ProductDesc GetDataObjectChild(PNK_ProductDesc productcatdescObj, int lang)
+        private PNK_ProductDesc GetDataObjectChild(PNK_ProductDesc gallerycatdescObj, int lang)
         {
             switch (lang)
             {
                 case 1:
-                    productcatdescObj.MainId = this.productcategoryId;
-                    productcatdescObj.LangId = Constant.DB.LangId;
-                    productcatdescObj.Title = SanitizeHtml.Sanitize(txtName.Value);
-                    productcatdescObj.TitleUrl = Utils.RemoveUnicode(SanitizeHtml.Sanitize(txtName.Value));
-                    productcatdescObj.Brief = txtIntro.Text;
-                    productcatdescObj.Detail = txtDetailVi.Text;
-                    productcatdescObj.Position = txtPositionVi.Text;
-                    productcatdescObj.Utility = txtUtilityVi.Text;
-                    productcatdescObj.Pictures = txtPicturesVi.Text;
-                    productcatdescObj.Design = txtDesignVi.Text;
-                    productcatdescObj.Payment = txtPaymentVi.Text;
-                    productcatdescObj.Contact = txtContactVi.Text;
-                    productcatdescObj.MetaTitle = txtMetaTitle.Text;
-                    productcatdescObj.Metadescription = txtMetaDescription.Text;
-                    productcatdescObj.MetaKeyword = txtMetaKeyword.Text;
-                    productcatdescObj.H1 = txtH1.Text;
-                    productcatdescObj.H2 = txtH2.Text;
-                    productcatdescObj.H3 = txtH3.Text;
+                    gallerycatdescObj.MainId = this.gallerycategoryId;
+                    gallerycatdescObj.LangId = Constant.DB.LangId;
+                    gallerycatdescObj.Title = SanitizeHtml.Sanitize(txtName.Value);
+                    gallerycatdescObj.TitleUrl = Utils.RemoveUnicode(SanitizeHtml.Sanitize(txtName.Value));
+                    gallerycatdescObj.Brief = txtIntro.Text;
+                    gallerycatdescObj.Detail = txtDetailVi.Text;
+                    gallerycatdescObj.Position = txtPositionVi.Text;
+                    gallerycatdescObj.Utility = txtUtilityVi.Text;
+                    gallerycatdescObj.Pictures = txtPicturesVi.Text;
+                    gallerycatdescObj.Design = txtDesignVi.Text;
+                    gallerycatdescObj.Payment = txtPaymentVi.Text;
+                    gallerycatdescObj.Contact = txtContactVi.Text;
+                    gallerycatdescObj.MetaTitle = txtMetaTitle.Text;
+                    gallerycatdescObj.Metadescription = txtMetaDescription.Text;
+                    gallerycatdescObj.MetaKeyword = txtMetaKeyword.Text;
+                    gallerycatdescObj.H1 = txtH1.Text;
+                    gallerycatdescObj.H2 = txtH2.Text;
+                    gallerycatdescObj.H3 = txtH3.Text;
                     break;
                 case 2:
-                    productcatdescObj.MainId = this.productcategoryId;
-                    productcatdescObj.LangId = Constant.DB.LangId_En;
+                    gallerycatdescObj.MainId = this.gallerycategoryId;
+                    gallerycatdescObj.LangId = Constant.DB.LangId_En;
                     string title = string.IsNullOrEmpty(txtNameEng.Value) ? SanitizeHtml.Sanitize(txtName.Value) : SanitizeHtml.Sanitize(txtNameEng.Value);
-                    productcatdescObj.Title = title;
-                    productcatdescObj.TitleUrl = Utils.RemoveUnicode(title);
-                    productcatdescObj.Brief = string.IsNullOrEmpty(txtIntroEng.Text) ? txtIntro.Text : txtIntroEng.Text;
-                    productcatdescObj.Detail = string.IsNullOrEmpty(txtDetailVi.Text) ? txtDetailVi.Text : txtDetailEng.Text;
+                    gallerycatdescObj.Title = title;
+                    gallerycatdescObj.TitleUrl = Utils.RemoveUnicode(title);
+                    gallerycatdescObj.Brief = string.IsNullOrEmpty(txtIntroEng.Text) ? txtIntro.Text : txtIntroEng.Text;
+                    gallerycatdescObj.Detail = string.IsNullOrEmpty(txtDetailVi.Text) ? txtDetailVi.Text : txtDetailEng.Text;
 
-                    productcatdescObj.Position = string.IsNullOrEmpty(txtPositionEng.Text) ? txtPositionVi.Text : txtPositionEng.Text;
+                    gallerycatdescObj.Position = string.IsNullOrEmpty(txtPositionEng.Text) ? txtPositionVi.Text : txtPositionEng.Text;
 
-                    productcatdescObj.Design = string.IsNullOrEmpty(txtDesignEng.Text) ? txtDesignVi.Text : txtDesignEng.Text;
-                    productcatdescObj.Pictures = string.IsNullOrEmpty(txtPicturesEng.Text) ? txtPicturesVi.Text : txtPicturesEng.Text;
-                    productcatdescObj.Payment = string.IsNullOrEmpty(txtPaymentEng.Text) ? txtPaymentVi.Text : txtPaymentEng.Text;
-                    productcatdescObj.Contact = string.IsNullOrEmpty(txtContactEng.Text) ? txtContactVi.Text : txtContactEng.Text;
+                    gallerycatdescObj.Design = string.IsNullOrEmpty(txtDesignEng.Text) ? txtDesignVi.Text : txtDesignEng.Text;
+                    gallerycatdescObj.Pictures = string.IsNullOrEmpty(txtPicturesEng.Text) ? txtPicturesVi.Text : txtPicturesEng.Text;
+                    gallerycatdescObj.Payment = string.IsNullOrEmpty(txtPaymentEng.Text) ? txtPaymentVi.Text : txtPaymentEng.Text;
+                    gallerycatdescObj.Contact = string.IsNullOrEmpty(txtContactEng.Text) ? txtContactVi.Text : txtContactEng.Text;
 
-                    productcatdescObj.MetaTitle = string.IsNullOrEmpty(txtMetaTitleEng.Text) ? txtMetaTitle.Text : txtMetaTitleEng.Text;
-                    productcatdescObj.Metadescription = string.IsNullOrEmpty(txtMetaDescriptionEng.Text) ? txtMetaDescription.Text : txtMetaDescriptionEng.Text;
-                    productcatdescObj.MetaKeyword = string.IsNullOrEmpty(txtMetaKeywordEng.Text) ? txtMetaKeyword.Text : txtMetaKeywordEng.Text;
-                    productcatdescObj.H1 = string.IsNullOrEmpty(txtH1Eng.Text) ? txtH1.Text : txtH1Eng.Text;
-                    productcatdescObj.H2 = string.IsNullOrEmpty(txtH2Eng.Text) ? txtH2.Text : txtH2Eng.Text;
-                    productcatdescObj.H3 = string.IsNullOrEmpty(txtH3Eng.Text) ? txtH3.Text : txtH3Eng.Text;
+                    gallerycatdescObj.MetaTitle = string.IsNullOrEmpty(txtMetaTitleEng.Text) ? txtMetaTitle.Text : txtMetaTitleEng.Text;
+                    gallerycatdescObj.Metadescription = string.IsNullOrEmpty(txtMetaDescriptionEng.Text) ? txtMetaDescription.Text : txtMetaDescriptionEng.Text;
+                    gallerycatdescObj.MetaKeyword = string.IsNullOrEmpty(txtMetaKeywordEng.Text) ? txtMetaKeyword.Text : txtMetaKeywordEng.Text;
+                    gallerycatdescObj.H1 = string.IsNullOrEmpty(txtH1Eng.Text) ? txtH1.Text : txtH1Eng.Text;
+                    gallerycatdescObj.H2 = string.IsNullOrEmpty(txtH2Eng.Text) ? txtH2.Text : txtH2Eng.Text;
+                    gallerycatdescObj.H3 = string.IsNullOrEmpty(txtH3Eng.Text) ? txtH3.Text : txtH3Eng.Text;
                     break;
             }
-            return productcatdescObj;
+            return gallerycatdescObj;
         }
 
         /// <summary>
@@ -561,42 +561,42 @@ namespace Cb.Web.Admin.Pages.Products
             //Xoá cache trước khi lưu
             CacheHelper.ClearAll();
 
-            PNK_Product productcatObj = new PNK_Product();
-            PNK_ProductDesc productcatObjVn = new PNK_ProductDesc();
-            PNK_ProductDesc productcatObjEn = new PNK_ProductDesc();
-            if (this.productcategoryId == int.MinValue)
+            PNK_Product gallerycatObj = new PNK_Product();
+            PNK_ProductDesc gallerycatObjVn = new PNK_ProductDesc();
+            PNK_ProductDesc gallerycatObjEn = new PNK_ProductDesc();
+            if (this.gallerycategoryId == int.MinValue)
             {
                 //get data insert
-                productcatObj = this.GetDataObjectParent(productcatObj);
-                productcatObj.PostDate = DateTime.Now;
-                productcatObj.Ordering = genericBLL.getOrdering();
-                productcatObjVn = this.GetDataObjectChild(productcatObjVn, Constant.DB.LangId);
-                productcatObjEn = this.GetDataObjectChild(productcatObjEn, Constant.DB.LangId_En);
+                gallerycatObj = this.GetDataObjectParent(gallerycatObj);
+                gallerycatObj.PostDate = DateTime.Now;
+                gallerycatObj.Ordering = genericBLL.getOrdering();
+                gallerycatObjVn = this.GetDataObjectChild(gallerycatObjVn, Constant.DB.LangId);
+                gallerycatObjEn = this.GetDataObjectChild(gallerycatObjEn, Constant.DB.LangId_En);
 
                 List<PNK_ProductDesc> lst = new List<PNK_ProductDesc>();
-                lst.Add(productcatObjVn);
-                lst.Add(productcatObjEn);
+                lst.Add(gallerycatObjVn);
+                lst.Add(gallerycatObjEn);
                 //excute
-                this.productcategoryId = generic2CBLL.Insert(productcatObj, lst);
+                this.gallerycategoryId = generic2CBLL.Insert(gallerycatObj, lst);
             }
             else
             {
                 string[] fields = { "Id" };
-                productcatObj.Id = this.productcategoryId;
-                productcatObj = genericBLL.Load(productcatObj, fields);
+                gallerycatObj.Id = this.gallerycategoryId;
+                gallerycatObj = genericBLL.Load(gallerycatObj, fields);
 
                 //get data update
-                productcatObj = this.GetDataObjectParent(productcatObj);
-                productcatObjVn = this.GetDataObjectChild(productcatObjVn, Constant.DB.LangId);
-                productcatObjEn = this.GetDataObjectChild(productcatObjEn, Constant.DB.LangId_En);
+                gallerycatObj = this.GetDataObjectParent(gallerycatObj);
+                gallerycatObjVn = this.GetDataObjectChild(gallerycatObjVn, Constant.DB.LangId);
+                gallerycatObjEn = this.GetDataObjectChild(gallerycatObjEn, Constant.DB.LangId_En);
                 List<PNK_ProductDesc> lst = new List<PNK_ProductDesc>();
-                lst.Add(productcatObjVn);
-                lst.Add(productcatObjEn);
+                lst.Add(gallerycatObjVn);
+                lst.Add(gallerycatObjEn);
                 //excute
-                generic2CBLL.Update(productcatObj, lst, fields);
-                //neu ve Published oo thay doi thi chay ham ChangeWithTransaction de doi Published cac con va cac product
-                //if (publisheddOld != productcatObj.Published)
-                //    PNK_Product.ChangeWithTransaction(DBConvert.ParseString(this.productcategoryId), productcatObj.Published);
+                generic2CBLL.Update(gallerycatObj, lst, fields);
+                //neu ve Published oo thay doi thi chay ham ChangeWithTransaction de doi Published cac con va cac gallery
+                //if (publisheddOld != gallerycatObj.Published)
+                //    PNK_Product.ChangeWithTransaction(DBConvert.ParseString(this.gallerycategoryId), gallerycatObj.Published);
             }
 
         }
@@ -645,9 +645,9 @@ namespace Cb.Web.Admin.Pages.Products
             string link, url;
 
             if (generic2CBLL.Delete(cid) && DeleteImage())
-                link = LinkHelper.GetAdminLink("product", categoryId, "delete");
+                link = LinkHelper.GetAdminLink("gallery", categoryId, "delete");
             else
-                link = LinkHelper.GetAdminLink("product", categoryId, "delfail");
+                link = LinkHelper.GetAdminLink("gallery", categoryId, "delfail");
             url = Utils.CombineUrl(template_path, link);
             Response.Redirect(url);
         }
@@ -657,7 +657,7 @@ namespace Cb.Web.Admin.Pages.Products
         /// </summary>
         private void CancelProduct()
         {
-            string url = LinkHelper.GetAdminLink("product");
+            string url = LinkHelper.GetAdminLink("gallery");
             Response.Redirect(url);
         }
 
@@ -674,9 +674,9 @@ namespace Cb.Web.Admin.Pages.Products
             ProductCategoryBLL ncBll = new ProductCategoryBLL();
             IList<PNK_ProductCategory> lst = ncBll.GetList(Constant.DB.LangId, string.Empty, 1, 300, out totalrow);
             
-            //Loại bỏ những productCategory thuộc nhóm Gallery có Id=64
-            lst = lst.Where(x => x.ParentId != DBConvert.ParseInt(ConfigurationManager.AppSettings["parentIdContact"])
-            && x.ProductCategoryDesc.Id != DBConvert.ParseInt(ConfigurationManager.AppSettings["parentIdContact"])).ToList();
+            //Loại bỏ những galleryCategory thuộc nhóm Gallery có Id=64
+            lst = lst.Where(x => x.ParentId == DBConvert.ParseInt(ConfigurationManager.AppSettings["parentIdContact"])
+            || x.ProductCategoryDesc.Id == DBConvert.ParseInt(ConfigurationManager.AppSettings["parentIdContact"])).ToList();
 
             if (lst != null && lst.Count > 0)
             {
@@ -735,7 +735,7 @@ namespace Cb.Web.Admin.Pages.Products
             if (Page.IsValid)
             {
                 SaveProduct();
-                string url = LinkHelper.GetAdminMsgLink("product", categoryId, "save");
+                string url = LinkHelper.GetAdminMsgLink("gallery", categoryId, "save");
                 Response.Redirect(url);
             }
         }
@@ -750,7 +750,7 @@ namespace Cb.Web.Admin.Pages.Products
             if (Page.IsValid)
             {
                 SaveProduct();
-                //string url = LinkHelper.GetAdminLink("edit_product", categoryId, productcategoryId.ToString());
+                //string url = LinkHelper.GetAdminLink("edit_gallery", categoryId, gallerycategoryId.ToString());
                 //Response.Redirect(url);
             }
         }
@@ -762,7 +762,7 @@ namespace Cb.Web.Admin.Pages.Products
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            DeleteProduct(DBConvert.ParseString(this.productcategoryId));
+            DeleteProduct(DBConvert.ParseString(this.gallerycategoryId));
         }
 
         /// <summary>
@@ -782,7 +782,7 @@ namespace Cb.Web.Admin.Pages.Products
         private void Alert(string alert)
         {
             string script = string.Format("alert('{0}')", alert);
-            ScriptManager.RegisterStartupScript(this, GetType(), "alertproductcategory", script, true);
+            ScriptManager.RegisterStartupScript(this, GetType(), "alertgallerycategory", script, true);
         }
 
         /// <summary>
@@ -794,7 +794,7 @@ namespace Cb.Web.Admin.Pages.Products
         {
             //args.IsValid = !CheckParentIsThisOrChild();
             //if (!args.IsValid)
-            //    Alert(Constant.UI.alert_invalid_parent_productcategory);
+            //    Alert(Constant.UI.alert_invalid_parent_gallerycategory);
         }
 
         #endregion
