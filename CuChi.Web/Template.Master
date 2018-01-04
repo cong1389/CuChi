@@ -11,7 +11,7 @@
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!--[if IE 7]>
 		<link rel="stylesheet" href="http://www.VietnamTravelGroup.vn/assets/wp-content/themes/bdltourpackage/stylesheet/ie7-style.css" /> 
@@ -74,6 +74,7 @@
     <script src="/assets/wp-content/plugins/jssor/jssor.js"></script>
     <script src="/assets/wp-content/plugins/jssor/jssor.slider.js"></script>
 
+
     <!--bootstrap-->
     <link rel="stylesheet" type="text/css" href="/Admin/Components/bootstrap/css/bootstrap.min.css" media="screen" />
     <script src="/Admin/Components/bootstrap/js/bootstrap.min.js"></script>
@@ -89,25 +90,13 @@
     <link rel="stylesheet" type="text/css" href="/assets/wp-content/plugins/photobox/photobox.css" media="screen" />
     <script type='text/javascript' src='/assets/wp-content/plugins/photobox/jquery.photobox.js'></script>
 
-      <!-- bootstrap-touchspin-->
+    <!-- bootstrap-touchspin-->
     <script type="text/javascript" src="/Admin/Components/bootstrap-touchspin/bootstrap.touchspin.js"></script>
     <link rel="stylesheet" type="text/css" href="/Admin/Components/bootstrap-touchspin/bootstrap.touchspin.css" />
 
     <%--<script src="/Styles/custom.js"></script>--%>
     <%--<link href="/Styles/jquery.treeview.min.css" rel="stylesheet" type="text/css" media="all" />--%>
     <%--<script src="/Styles/jquery.treeview.min.js"></script>--%>
-
-    <!--Fane page FB-->
-    <div id="fb-root"></div>
-    <script>(function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.6";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
 </head>
 
 <body class="home page page-id-3896 page-template-default">
@@ -181,10 +170,92 @@
     <script src="/assets/wp-content/plugins/SlickNav/jquery.slicknav.min.js"></script>
     <script src="/assets/wp-content/plugins/SlickNav/modernizr.min.js"></script>--%>
 
-     <!-- jquery-idle-timeout -->
+    <!-- jquery-idle-timeout -->
     <script type="text/javascript" src="/Admin/Components/jquery-idle-timeout/jquery.idletimeout.js"></script>
     <script type="text/javascript" src="/Admin/Components/jquery-idle-timeout/jquery.idletimer.js"></script>
     <script type="text/javascript" src="/Admin/Components/jquery-idle-timeout/ui-idletimeout.min.js"></script>
+
+
+    <!--Start of Tawk.to Script -->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/5875f8ae6f070d1ee1c13a48/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+    <!--FB chat-->
+
+    <style type="text/css">
+        .hisella-messages {
+            position: fixed;
+            bottom: -300px;
+            left: 0;
+            z-index: 999999;
+        }
+
+        #hisella-facebook {
+            opacity: 0;
+        }
+
+        .hisella-messages-outer {
+            position: relative;
+        }
+
+        #hisella-minimize {
+            background: #3b5998;
+            font-size: 14px;
+            color: #fff;
+            padding: 3px 10px;
+            position: absolute;
+            top: -50px;
+            left: 5px;
+            border: 1px solid #E9EAED;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width:768px) {
+            #hisella-facebook {
+                opacity: 0;
+            }
+
+            .hisella-messages {
+                bottom: -300px;
+                left: -135px;
+            }
+        }
+    </style>
+    <div id='fb-root'></div>
+    <script>
+
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <div class="hisella-messages">
+        <div class="hisella-messages-outer">
+            <div id="hisella-minimize" style="background-color: green;">
+                <center>TƯ VẤN MIỄN PHÍ <br> Hotline: (+84) 028.3823.6996 </center>
+            </div>
+            <div id="hisella-facebook" class='fb-page' data-adapt-container-width='true' data-height='300' data-hide-cover='false' data-href='https://www.facebook.com/cuchitunnelsdailytours' 
+                data-show-facepile='true' data-show-posts='false' data-small-header='false' data-tabs='messages' data-width='250'>
+            </div>
+        </div>
+
+    </div>
+
+    <!--/FB chat-->
 
 </body>
 </html>

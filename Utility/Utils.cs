@@ -348,11 +348,14 @@ namespace Cb.Utility
                 text = text.Replace(((char)i).ToString(), "");
             }
 
-            text = text.Replace(" ", "-").Trim();
+            text = text.Replace('\u0110', 'D').Replace("   ", "-").Replace("  ", "-").Replace(" ", "-").Replace("---", "-").Replace("--", "-").Trim();
             Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
-            string strFormD = text.Normalize(System.Text.NormalizationForm.FormD).ToLower();
 
-            return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
+            string strFormD = text.Normalize(NormalizationForm.FormD).ToLower();
+
+            strFormD = regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd');            
+
+            return strFormD;
         }
 
         public static string ConvertIdsToSting(List<int> ids)

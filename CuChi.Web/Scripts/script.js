@@ -1,5 +1,25 @@
 ﻿
+(function (jQuery) {
+
+
+    jQuery(document).ready(function () {
+        jQuery('#hisella-minimize').click(function () {
+            if (jQuery('#hisella-facebook').css('opacity') == 0) {
+                jQuery('#hisella-facebook').css('opacity', 1);
+                jQuery('.hisella-messages').animate({ left: '0' }).animate({ bottom: '0' });
+            } else {
+                jQuery('.hisella-messages').animate({ bottom: '-300px' }).animate({ left: '-0px' }, 400,
+                    function () {
+                        jQuery('#hisella-facebook').css('opacity', 0);
+                    });
+            }
+        })
+    });
+})(jQuery);
+
 $(document).ready(function () {
+
+
 
     // testimonial
     var testimonial_carousel = jQuery('.gdl-carousel-testimonial .testimonial-item-wrapper');
@@ -102,74 +122,74 @@ function OpenMenu() {
     $("#navToggle").click(function () {
         $(n.hasClass("menuopen") ? $(e).removeClass("menuopen").addClass("menuclose") : $(e).removeClass("menuclose").addClass("menuopen"));
     })
-    , n.click(function () {
-        n.hasClass("menuopen") && $(u)
-    }), $("#navToggle,.overlapblackbg").on("click", function () {
-        $(".wsmenucontainer").toggleClass("mrginleft")
-    })
-    , $(".wsmenu-list li").has(".wsmenu-submenu, .wsmenu-submenu-sub, .wsmenu-submenu-sub-sub").prepend('<span class="wsmenu-click"><i class="wsmenu-arrow fa fa-angle-down"></i></span>'), $(".wsmenu-list li").has(".megamenu").prepend('<span class="wsmenu-click"><i class="wsmenu-arrow fa fa-angle-down"></i></span>')
-    , $(".wsmenu-mobile").click(function () {
-        $(".wsmenu-list").slideToggle("slow")
-    }), $(".wsmenu-click").click(function () {
-        $(this).siblings(".wsmenu-submenu").slideToggle("slow")
-        , $(this).children(".wsmenu-arrow").toggleClass("wsmenu-rotate")
-        , $(this).siblings(".wsmenu-submenu-sub").slideToggle("slow")
-        , $(this).siblings(".wsmenu-submenu-sub-sub").slideToggle("slow")
-        , $(this).siblings(".megamenu").slideToggle("slow")
-    })
+        , n.click(function () {
+            n.hasClass("menuopen") && $(u)
+        }), $("#navToggle,.overlapblackbg").on("click", function () {
+            $(".wsmenucontainer").toggleClass("mrginleft")
+        })
+        , $(".wsmenu-list li").has(".wsmenu-submenu, .wsmenu-submenu-sub, .wsmenu-submenu-sub-sub").prepend('<span class="wsmenu-click"><i class="wsmenu-arrow fa fa-angle-down"></i></span>'), $(".wsmenu-list li").has(".megamenu").prepend('<span class="wsmenu-click"><i class="wsmenu-arrow fa fa-angle-down"></i></span>')
+        , $(".wsmenu-mobile").click(function () {
+            $(".wsmenu-list").slideToggle("slow")
+        }), $(".wsmenu-click").click(function () {
+            $(this).siblings(".wsmenu-submenu").slideToggle("slow")
+                , $(this).children(".wsmenu-arrow").toggleClass("wsmenu-rotate")
+                , $(this).siblings(".wsmenu-submenu-sub").slideToggle("slow")
+                , $(this).siblings(".wsmenu-submenu-sub-sub").slideToggle("slow")
+                , $(this).siblings(".megamenu").slideToggle("slow")
+        })
 };
 
 function SetSlideDetail() {
 
     var _SlideshowTransitions = [
-    //Fade in L
-{ $Duration: 1200, x: 0.3, $During: { $Left: [0.3, 0.7] }, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
-//Fade out R
+        //Fade in L
+        { $Duration: 1200, x: 0.3, $During: { $Left: [0.3, 0.7] }, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
+        //Fade out R
         , { $Duration: 1200, x: -0.3, $SlideOut: true, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
-//Fade in R
+        //Fade in R
         , { $Duration: 1200, x: -0.3, $During: { $Left: [0.3, 0.7] }, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
-//Fade out L
+        //Fade out L
         , { $Duration: 1200, x: 0.3, $SlideOut: true, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
 
-//Fade in T
+        //Fade in T
         , { $Duration: 1200, y: 0.3, $During: { $Top: [0.3, 0.7] }, $Easing: { $Top: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2, $Outside: true }
-//Fade out B
+        //Fade out B
         , { $Duration: 1200, y: -0.3, $SlideOut: true, $Easing: { $Top: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2, $Outside: true }
-//Fade in B
+        //Fade in B
         , { $Duration: 1200, y: -0.3, $During: { $Top: [0.3, 0.7] }, $Easing: { $Top: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
-//Fade out T
+        //Fade out T
         , { $Duration: 1200, y: 0.3, $SlideOut: true, $Easing: { $Top: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
 
-//Fade in LR
+        //Fade in LR
         , { $Duration: 1200, x: 0.3, $Cols: 2, $During: { $Left: [0.3, 0.7] }, $ChessMode: { $Column: 3 }, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2, $Outside: true }
-//Fade out LR
+        //Fade out LR
         , { $Duration: 1200, x: 0.3, $Cols: 2, $SlideOut: true, $ChessMode: { $Column: 3 }, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2, $Outside: true }
-//Fade in TB
+        //Fade in TB
         , { $Duration: 1200, y: 0.3, $Rows: 2, $During: { $Top: [0.3, 0.7] }, $ChessMode: { $Row: 12 }, $Easing: { $Top: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
-//Fade out TB
+        //Fade out TB
         , { $Duration: 1200, y: 0.3, $Rows: 2, $SlideOut: true, $ChessMode: { $Row: 12 }, $Easing: { $Top: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
 
-//Fade in LR Chess
+        //Fade in LR Chess
         , { $Duration: 1200, y: 0.3, $Cols: 2, $During: { $Top: [0.3, 0.7] }, $ChessMode: { $Column: 12 }, $Easing: { $Top: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2, $Outside: true }
-//Fade out LR Chess
+        //Fade out LR Chess
         , { $Duration: 1200, y: -0.3, $Cols: 2, $SlideOut: true, $ChessMode: { $Column: 12 }, $Easing: { $Top: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
-//Fade in TB Chess
+        //Fade in TB Chess
         , { $Duration: 1200, x: 0.3, $Rows: 2, $During: { $Left: [0.3, 0.7] }, $ChessMode: { $Row: 3 }, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2, $Outside: true }
-//Fade out TB Chess
+        //Fade out TB Chess
         , { $Duration: 1200, x: -0.3, $Rows: 2, $SlideOut: true, $ChessMode: { $Row: 3 }, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
 
-//Fade in Corners
+        //Fade in Corners
         , { $Duration: 1200, x: 0.3, y: 0.3, $Cols: 2, $Rows: 2, $During: { $Left: [0.3, 0.7], $Top: [0.3, 0.7] }, $ChessMode: { $Column: 3, $Row: 12 }, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Top: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2, $Outside: true }
-//Fade out Corners
+        //Fade out Corners
         , { $Duration: 1200, x: 0.3, y: 0.3, $Cols: 2, $Rows: 2, $During: { $Left: [0.3, 0.7], $Top: [0.3, 0.7] }, $SlideOut: true, $ChessMode: { $Column: 3, $Row: 12 }, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Top: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2, $Outside: true }
 
-//Fade Clip in H
+        //Fade Clip in H
         , { $Duration: 1200, $Delay: 20, $Clip: 3, $Assembly: 260, $Easing: { $Clip: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
-//Fade Clip out H
+        //Fade Clip out H
         , { $Duration: 1200, $Delay: 20, $Clip: 3, $SlideOut: true, $Assembly: 260, $Easing: { $Clip: $JssorEasing$.$EaseOutCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
-//Fade Clip in V
+        //Fade Clip in V
         , { $Duration: 1200, $Delay: 20, $Clip: 12, $Assembly: 260, $Easing: { $Clip: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
-//Fade Clip out V
+        //Fade Clip out V
         , { $Duration: 1200, $Delay: 20, $Clip: 12, $SlideOut: true, $Assembly: 260, $Easing: { $Clip: $JssorEasing$.$EaseOutCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
     ];
 

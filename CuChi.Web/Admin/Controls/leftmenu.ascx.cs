@@ -6,6 +6,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Cb.Model;
 using Cb.Utility;
+using Cb.BLL.Product;
+using Cb.Model.Products;
+using Cb.DBUtility;
+using System.Configuration;
+using System.Web.UI.HtmlControls;
 
 namespace Cb.Web.Admin.Controls
 {
@@ -13,6 +18,21 @@ namespace Cb.Web.Admin.Controls
     {
         #region Parameter
 
+        IList<PNK_ProductCategory> lstAll;
+
+        protected string template_path
+        {
+            get
+            {
+                if (ViewState["template_path"] != null)
+                    return ViewState["template_path"].ToString();
+                return string.Empty;
+            }
+            set
+            {
+                ViewState["template_path"] = value;
+            }
+        }
 
         #endregion
 
@@ -20,6 +40,8 @@ namespace Cb.Web.Admin.Controls
 
         private void InitPage()
         {
+            this.template_path = WebUtils.GetWebPath();
+
             SetLink();
             GetUserInfo();
         }
@@ -82,14 +104,119 @@ namespace Cb.Web.Admin.Controls
             if (!Page.IsPostBack)
             {
                 InitPage();
+                GenerateMenuProduct();
             }
         }
 
         #endregion
 
+        private void GenerateMenuProduct()
+        {
+            IList<PNK_ProductCategory> lstParent;
+            int total;
+            ProductCategoryBLL ncBll = new ProductCategoryBLL();
+            lstAll = ncBll.GetList(Constant.DB.LangId, string.Empty, 1, 300, out total);
+
+            if (total > 0)
+            {
+                //Lấy danh sách danh mục cha có ParentID==0 gán vào menu cha         
+                lstParent = lstAll.Where(m => m.ParentId == 0                   
+                    && m.Id != 2229
+                     && m.Id != 2222
+                     && m.Id != 2220
+                     && m.Id != 2207
+                     && m.Id != 124
+                     && m.Id != 73
+                     && m.Id != 64
+                     && m.Id != 64
+                     && m.Id != 42
+
+                    && m.Id != DBConvert.ParseInt(ConfigurationManager.AppSettings["parentIdHome"])
+                    ).ToList();
+                if (lstParent.Count() > 0)
+                {
+                    rptResult.DataSource = lstParent;
+                    rptResult.DataBind();
+                }
+            }
+        }
+
         protected void hypClearCache_ServerClick(object sender, EventArgs e)
         {
             CacheHelper.ClearAll();
         }
+
+        protected void rptResult_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                PNK_ProductCategory data = e.Item.DataItem as PNK_ProductCategory;
+
+                HtmlAnchor hypName = e.Item.FindControl("hypName") as HtmlAnchor;
+                hypName.HRef = LinkHelper.GetAdminLink("product", data.Id);
+
+                Literal ltrName = e.Item.FindControl("ltrName") as Literal;
+                hypName.Title = ltrName.Text = data.ProductCategoryDesc.Name;
+
+                //Sub menu con              
+                IList<PNK_ProductCategory> lstSub = lstAll.Where(m => m.ParentId == data.Id).ToList();
+                if (lstSub.Count() > 0)
+                {
+                    Literal divIconSub = e.Item.FindControl("divIconSub") as Literal;
+                    divIconSub.Text = "<span class=\"pull-right-container\" style=\"display: block\"><i class=\"fa fa-angle-left pull-right\"></i></span>";
+
+                    HtmlControl divSub = e.Item.FindControl("divSub") as HtmlControl;
+                    divSub.Visible = true;
+
+                    Repeater rptResultSub = e.Item.FindControl("rptResultSub") as Repeater;
+                    rptResultSub.DataSource = lstSub;
+                    rptResultSub.DataBind();
+                }
+            }
+        }
+
+        protected void rptResultSub_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                PNK_ProductCategory data = e.Item.DataItem as PNK_ProductCategory;
+
+                HtmlAnchor hypName = e.Item.FindControl("hypName") as HtmlAnchor;
+                hypName.HRef = LinkHelper.GetAdminLink("product", data.Id);
+
+                Literal ltrName = e.Item.FindControl("ltrName") as Literal;
+                hypName.Title = ltrName.Text = data.ProductCategoryDesc.Name;
+
+                //Sub menu con              
+                IList<PNK_ProductCategory> lstSub = lstAll.Where(m => m.ParentId == data.Id).ToList();
+                if (lstSub.Count() > 0)
+                {
+                    Literal divIconSub1 = e.Item.FindControl("divIconSub1") as Literal;
+                    divIconSub1.Text = "<span class=\"pull-right-container\" style=\"display: block\"><i class=\"fa fa-angle-left pull-right\"></i></span>";
+                    
+                    HtmlControl divSub1 = e.Item.FindControl("divSub1") as HtmlControl;
+                    divSub1.Visible = true;
+
+                    Repeater rptResultSub1 = e.Item.FindControl("rptResultSub1") as Repeater;
+                    rptResultSub1.DataSource = lstSub;
+                    rptResultSub1.DataBind();
+                }
+            }
+        }
+
+        protected void rptResultSub1_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                PNK_ProductCategory data = e.Item.DataItem as PNK_ProductCategory;
+
+                HtmlAnchor hypName = e.Item.FindControl("hypName") as HtmlAnchor;
+                hypName.HRef = LinkHelper.GetAdminLink("product", data.Id);
+
+                Literal ltrName = e.Item.FindControl("ltrName") as Literal;
+                hypName.Title = ltrName.Text = data.ProductCategoryDesc.Name;
+            }
+        }
+
     }
 }

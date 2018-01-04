@@ -3,7 +3,7 @@
 }
 
 .bg-green-haze, .bg-hover-green-haze:hover {
-    background: #44b6ae!important;
+    background: #44b6ae !important;
 }
 
 .noPM {
@@ -419,7 +419,8 @@ input[type=checkbox] {
     height: 100% !important;
     overflow-y: auto !important;
     background-color: #ecf0f5;
-    border-right: 7px solid #ddd;
+    border-right: 3px solid #ddd;
+    width: 243px !important;
 }
 
 footer .footerimg {
@@ -761,8 +762,29 @@ footer .footerimg {
 }
 
 
- .form-section, .portlet-form .form-section {
+.form-section, .portlet-form .form-section {
     margin: 30px 0;
     padding-bottom: 5px;
     border-bottom: 1px solid #e7ecf1;
+}
+
+
+ .pull-right-container {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -7px;
+}
+.sidebar-menu li > a > .fa-angle-left, .sidebar-menu li > a > .pull-right-container > .fa-angle-left {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin-right: 10px;
+    -webkit-transition: transform .5s ease;
+    -o-transition: transform .5s ease;
+    transition: transform .5s ease;
+}
+
+font-awesome.min.css:4 .fa.pull-right {
+    margin-left: .3em;
 }

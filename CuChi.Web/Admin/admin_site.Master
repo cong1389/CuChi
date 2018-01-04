@@ -80,7 +80,7 @@
                 <dgc:topmenu ID="topmenu" runat="server" />
 
                 <aside class="main-sidebar col-lg-3">
-                    <section class="sidebar" style="height: auto;">
+                    <section class="sidebar row" style="height: auto;">
                         <dgc:leftmenu ID="leftmenu" runat="server" />
                     </section>
                 </aside>

@@ -84,6 +84,8 @@ namespace Cb.Web.Admin.Pages.Gallerys
         }
         protected string show_msg, action, l_search, records, msg_no_selected_item, msg_confirm_delete_item;
 
+        string getLinkByPageName = string.Empty;
+
         #region Viewstate
 
         protected int currentPageIndex
@@ -129,6 +131,19 @@ namespace Cb.Web.Admin.Pages.Gallerys
         {
             categoryId = Utils.GetParameter("cid", string.Empty);
 
+            //switch page
+            string pageName = Utils.GetParameter("page", "home");
+            switch (pageName)
+            {
+                case "picture":
+                    getLinkByPageName = Constant.UI.edit_picture_page;
+                    break;
+                case "video":
+                    getLinkByPageName = Constant.UI.edit_video_page;
+                    break;
+            }
+
+
             pcBll = new ProductBLL();
             genericBLL = new Generic<PNK_Product>();
             generic2CBLL = new Generic2C<PNK_Product, PNK_ProductDesc>();
@@ -136,6 +151,7 @@ namespace Cb.Web.Admin.Pages.Gallerys
             msg_confirm_delete_item = LocalizationUtility.GetText("mesConfirmDelete");
             msg_no_selected_item = LocalizationUtility.GetText("mesSelectItem");
             LocalizationUtility.SetValueControl(this);
+
             BindNewsCategory();
             GetMessage();
         }
@@ -169,6 +185,8 @@ namespace Cb.Web.Admin.Pages.Gallerys
         /// </summary>
         private void GetAction()
         {
+            
+
             this.action = Request.Form["task"];
             string cid = Request.Form["cid[]"];
             switch (action)
@@ -215,7 +233,19 @@ namespace Cb.Web.Admin.Pages.Gallerys
         /// </summary>
         private void Add()
         {
-            string url = LinkHelper.GetAdminLink("edit_gallery");
+            //switch page
+            string pageName = Utils.GetParameter("page", "home");
+            switch (pageName)
+            {
+                case Constant.UI.picture_page:
+                    getLinkByPageName = Constant.UI.edit_picture_page;
+                    break;
+                case Constant.UI.video_page:
+                    getLinkByPageName = Constant.UI.edit_video_page;
+                    break;
+            }
+
+            string url = LinkHelper.GetAdminLink(getLinkByPageName);
             Response.Redirect(url);
         }
 
@@ -224,18 +254,30 @@ namespace Cb.Web.Admin.Pages.Gallerys
         /// </summary>
         /// <param name="cid"></param>
         private void Edit(string cid)
-        {
+        { 
+            //switch page
+            string pageName = Utils.GetParameter("page", "home");
+            switch (pageName)
+            {
+                case Constant.UI.picture_page:
+                    getLinkByPageName = Constant.UI.edit_picture_page;
+                    break;
+                case Constant.UI.video_page:
+                    getLinkByPageName = Constant.UI.edit_video_page;
+                    break;
+            }
+
             if (cid == null) return;
             string link, url;
             string[] arrStr;
             if (cid.IndexOf(',') >= 0)
             {
                 arrStr = cid.Split(',');
-                link = LinkHelper.GetAdminLink("edit_gallery", arrStr[0]);
+                link = LinkHelper.GetAdminLink(getLinkByPageName, arrStr[0]);
                 //link = string.Format(SiteNavigation.link_adminPage_editgallerycategory, arrStr[0]);
             }
             else
-                link = LinkHelper.GetAdminLink("edit_gallery", cid);
+                link = LinkHelper.GetAdminLink(getLinkByPageName, cid);
             Response.Redirect(link);
         }
 
@@ -274,13 +316,25 @@ namespace Cb.Web.Admin.Pages.Gallerys
                 //    catch { }
                 //}
 
+                //switch page
+                string pageName = Utils.GetParameter("page", "home");
+                switch (pageName)
+                {
+                    case Constant.UI.picture_page:
+                        getLinkByPageName = Constant.UI.picture_page;
+                        break;
+                    case Constant.UI.video_page:
+                        getLinkByPageName = Constant.UI.video_page;
+                        break;
+                }
+
                 string link, url;
                 if (generic2CBLL.Delete(cid))
                 {
-                    link = LinkHelper.GetAdminMsgLink("gallery", cid, "delete");
+                    link = LinkHelper.GetAdminMsgLink(getLinkByPageName, cid, "delete");
                 }
                 else
-                    link = LinkHelper.GetAdminMsgLink("gallery", cid, "delfail");
+                    link = LinkHelper.GetAdminMsgLink(getLinkByPageName, cid, "delfail");
                 url = Utils.CombineUrl(template_path, link);
                 Response.Redirect(url);
             }
@@ -378,15 +432,29 @@ namespace Cb.Web.Admin.Pages.Gallerys
 
         private string GetAllChildCategory()
         {
-            int categoryId = DBConvert.ParseInt(drpCategory.SelectedValue);
-            categoryId = categoryId == 0 ? int.MinValue : DBConvert.ParseInt(drpCategory.SelectedValue);
+            int categoryId = int.MinValue;// = DBConvert.ParseInt(drpCategory.SelectedValue);
+            string pageName = Utils.GetParameter("page", "home");
+            switch (pageName)
+            {
+                case "picture":
+                    categoryId = 112;
+                    break;
+                case "video":
+                    categoryId = 113;
+                    break;
+            }
+
+            //categoryId = categoryId == 0 ? int.MinValue : DBConvert.ParseInt(drpCategory.SelectedValue);
             string arrId = "";
             if (categoryId != int.MinValue)
             {
                 ProductCategoryBLL newsCateBll = new ProductCategoryBLL();
-                IList<PNK_ProductCategory> lst = newsCateBll.GetAllChild(DBConvert.ParseInt(drpCategory.SelectedValue), true);
-                
-                arrId = arrId + Utils.ArrayToString<PNK_ProductCategory>((List<PNK_ProductCategory>)lst, "Id", ",");
+                IList<PNK_ProductCategory> lst = newsCateBll.GetAllChild(categoryId, true);
+
+                arrId = arrId + Utils.ArrayToString((List<PNK_ProductCategory>)lst, "Id", ",");
+
+                drpCategory.SelectedValue = categoryId.ToString();
+                drpCategory.Attributes.Add("readonly", "true");
             }
             else
             {
@@ -438,7 +506,20 @@ namespace Cb.Web.Admin.Pages.Gallerys
         protected void btnSave_Click(object sender, EventArgs e)
         {
             SaveOrder();
-            string url = Utils.CombineUrl(template_path, LinkHelper.GetAdminLink("gallery"));
+
+            //switch page
+            string pageName = Utils.GetParameter("page", "home");
+            switch (pageName)
+            {
+                case Constant.UI.picture_page:
+                    getLinkByPageName = Constant.UI.picture_page;
+                    break;
+                case Constant.UI.video_page:
+                    getLinkByPageName = Constant.UI.video_page;
+                    break;
+            }
+
+            string url = Utils.CombineUrl(template_path, LinkHelper.GetAdminLink(getLinkByPageName));
             Response.Redirect(url);
         }
 
@@ -534,7 +615,7 @@ namespace Cb.Web.Admin.Pages.Gallerys
                     //set link
                     HyperLink hdflink = new HyperLink();
                     hdflink = (HyperLink)e.Item.FindControl("hdflink");
-                    hypBaseImage.HRef = hdflink.NavigateUrl = template_path + LinkHelper.GetAdminLink("edit_gallery", data.CategoryId.ToString(), data.Id.ToString());
+                    hypBaseImage.HRef = hdflink.NavigateUrl = template_path + LinkHelper.GetAdminLink(getLinkByPageName, data.CategoryId.ToString(), data.Id.ToString());
                     //HtmlTableCell td = (HtmlTableCell)e.Item.FindControl("tdName");
                     //td.Attributes.Add("onclick", string.Format("listItemTask('cb{0}', 'edit')", e.Item.ItemIndex));
                     //td = (HtmlTableCell)e.Item.FindControl("trUpdateDate");

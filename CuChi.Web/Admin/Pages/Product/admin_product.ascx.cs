@@ -150,21 +150,21 @@ namespace Cb.Web.Admin.Pages.Products
         {
             ProductCategoryBLL newsCateBll = new ProductCategoryBLL();
             IList<PNK_ProductCategory> lstPicture = newsCateBll.GetAllChild(DBConvert.ParseInt(ConfigurationManager.AppSettings["parentIdContact"]), true);
-            
+
             int total;
             IList<PNK_Product> lst = pcBll.GetList(1, string.Empty, string.Empty, cateId, content, null, string.Empty, begin, end, out total);
 
             if (lst != null && lst.Count > 0)
             {
                 //Loại bỏ những productCategory thuộc nhóm Gallery có Id=64
-                IList<PNK_Product> lst1 =lst;
+                IList<PNK_Product> lst1 = lst;
                 for (int i = 0; i < lstPicture.Count; i++)
                 {
-                     lst1 = (from x in lst1
-                             where !x.CategoryId.ToString().Contains(lstPicture[i].Id.ToString())
-                                               select x).ToList();
+                    lst1 = (from x in lst1
+                            where !x.CategoryId.ToString().Contains(lstPicture[i].Id.ToString())
+                            select x).ToList();
                 }
-                
+
 
                 this.records = DBConvert.ParseString(lst1.Count);
                 this.pager.PageSize = DBConvert.ParseInt(ConfigurationManager.AppSettings["PageSizeAdmin"]);
@@ -373,7 +373,9 @@ namespace Cb.Web.Admin.Pages.Products
             this.search.Value = strSearch;
             strSearch = strSearch == null ? string.Empty : Utils.RemoveUnicode(SanitizeHtml.Sanitize(strSearch));
 
-            GetList(1, strSearch, GetAllChildCategory(), this.currentPageIndex, DBConvert.ParseInt(ConfigurationManager.AppSettings["PageSizeAdmin"]));
+            string allCategoryid = GetAllChildCategory();
+
+            GetList(1, strSearch, allCategoryid, this.currentPageIndex, DBConvert.ParseInt(ConfigurationManager.AppSettings["PageSizeAdmin"]));
         }
 
         /// <summary>
@@ -391,13 +393,13 @@ namespace Cb.Web.Admin.Pages.Products
 
         private string GetAllChildCategory()
         {
-            int categoryId = DBConvert.ParseInt(drpCategory.SelectedValue);
-            categoryId = categoryId == 0 ? int.MinValue : DBConvert.ParseInt(drpCategory.SelectedValue);
+            int categoryDrpId = DBConvert.ParseInt(drpCategory.SelectedValue);
+            //categoryDrpId = categoryId != string.Empty ? DBConvert.ParseInt(categoryId) : DBConvert.ParseInt(drpCategory.SelectedValue);
             string arrId = "";
-            if (categoryId != int.MinValue)
+            if (categoryDrpId != int.MinValue)
             {
                 ProductCategoryBLL newsCateBll = new ProductCategoryBLL();
-                IList<PNK_ProductCategory> lst = newsCateBll.GetAllChild(DBConvert.ParseInt(drpCategory.SelectedValue), true);
+                IList<PNK_ProductCategory> lst = newsCateBll.GetAllChild(categoryDrpId, true);
 
                 if (lst == null && lst.Count == 0)
                 {
@@ -431,7 +433,10 @@ namespace Cb.Web.Admin.Pages.Products
             if (!IsPostBack)
             {
                 InitializeComponent();
-                Search();
+                
+                GetList(1, string.Empty, categoryId, this.currentPageIndex, DBConvert.ParseInt(ConfigurationManager.AppSettings["PageSizeAdmin"]));
+
+                //Search();
             }
         }
 

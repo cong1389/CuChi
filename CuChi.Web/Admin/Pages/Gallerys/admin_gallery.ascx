@@ -102,7 +102,7 @@
             <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
 
-                    <div class="form-horizontal">
+                    <div class="form-horizontal hidden">
                         <div class="form-group">
 
                             <label class="col-sm-2 control-label">

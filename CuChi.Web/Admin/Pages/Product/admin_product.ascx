@@ -7,7 +7,7 @@
 <script type="text/javascript">    
 
     function submitButton(task) {
-        var frm = document.getElementById('aspnetForm');        
+        var frm = document.getElementById('aspnetForm');
         if (task == 'new' || task == 'search' || task == 'edit' || task == 'delete' || task == 'publish' || task == 'unpublish' || checkSelectedItem('<%=msg_no_selected_item%>')) {
             switch (task) {
                 case 'delete':                  
@@ -201,7 +201,6 @@
                     <!-- End paging -->
                 </ContentTemplate>
             </asp:UpdatePanel>
-
 
         </div>
     </div>

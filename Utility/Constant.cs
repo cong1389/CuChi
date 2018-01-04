@@ -144,6 +144,12 @@ namespace Cb.Utility
             public const string admin_config_phone = "Điện thoại";
             public const string admin_config_fax = "Fax";
 
+            public const string picture_page = "picture";
+            public const string edit_picture_page = "edit_picture";
+
+            public const string video_page = "video";
+            public const string edit_video_page = "edit_video";
+
         }
 
         public static class DSC

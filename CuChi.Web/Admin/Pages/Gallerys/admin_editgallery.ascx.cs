@@ -11,30 +11,22 @@
 // =============================================
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Web;
-using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
 using Cb.DBUtility;
 using Cb.Model;
 using Cb.BLL;
 using Cb.Localization;
 using System.IO;
-using Microsoft.Security.Application;
 using Cb.Model.Products;
 using Cb.BLL.Product;
-using System.Diagnostics;
-using System.Text;
 using System.Net;
-using System.Drawing;
 using Cb.Utility;
 
 namespace Cb.Web.Admin.Pages.Gallerys
@@ -50,6 +42,21 @@ namespace Cb.Web.Admin.Pages.Gallerys
         protected int gallerycategoryId = int.MinValue;
         string galleryCategoryName = string.Empty;
         protected string template_path;
+
+        private string getLinkByPageName
+        {
+            get
+            {
+                if (ViewState["getLinkByPageName"] != null)
+                    return ViewState["getLinkByPageName"].ToString();
+                else
+                    return string.Empty;
+            }
+            set
+            {
+                ViewState["getLinkByPageName"] = value;
+            }
+        }
 
         private string filenameUpload
         {
@@ -107,6 +114,17 @@ namespace Cb.Web.Admin.Pages.Gallerys
         {
             LocalizationUtility.SetValueControl(this);
             ltrPageDetail.Text = LocalizationUtility.GetText(ltrPageDetail.ID);
+
+            //swich page
+            switch (Utils.GetParameter("page", "home"))
+            {
+                case Constant.UI.edit_picture_page:
+                    getLinkByPageName = Constant.UI.picture_page;
+                    break;
+                case Constant.UI.edit_video_page:
+                    getLinkByPageName = Constant.UI.video_page;
+                    break;
+            }
 
             this.ltrAdminApply.Text = Constant.UI.admin_apply;
             this.ltrAdminCancel.Text = Constant.UI.admin_cancel;
@@ -639,15 +657,26 @@ namespace Cb.Web.Admin.Pages.Gallerys
         /// <param name="cid"></param>
         private void DeleteProduct(string cid)
         {
+            //swich page
+            switch (Utils.GetParameter("page", "home"))
+            {
+                case Constant.UI.edit_picture_page:
+                    getLinkByPageName = Constant.UI.picture_page;
+                    break;
+                case Constant.UI.edit_video_page:
+                    getLinkByPageName = Constant.UI.video_page;
+                    break;
+            }
+
             //Xoá cache trước khi lưu
             CacheHelper.ClearAll();
 
             string link, url;
 
             if (generic2CBLL.Delete(cid) && DeleteImage())
-                link = LinkHelper.GetAdminLink("gallery", categoryId, "delete");
+                link = LinkHelper.GetAdminLink(getLinkByPageName, categoryId, "delete");
             else
-                link = LinkHelper.GetAdminLink("gallery", categoryId, "delfail");
+                link = LinkHelper.GetAdminLink(getLinkByPageName, categoryId, "delfail");
             url = Utils.CombineUrl(template_path, link);
             Response.Redirect(url);
         }
@@ -657,7 +686,18 @@ namespace Cb.Web.Admin.Pages.Gallerys
         /// </summary>
         private void CancelProduct()
         {
-            string url = LinkHelper.GetAdminLink("gallery");
+            //swich page
+            switch (Utils.GetParameter("page", "home"))
+            {
+                case Constant.UI.edit_picture_page:
+                    getLinkByPageName = Constant.UI.picture_page;
+                    break;
+                case Constant.UI.edit_video_page:
+                    getLinkByPageName = Constant.UI.video_page;
+                    break;
+            }
+
+            string url = LinkHelper.GetAdminLink(getLinkByPageName);
             Response.Redirect(url);
         }
 
@@ -673,7 +713,7 @@ namespace Cb.Web.Admin.Pages.Gallerys
             _drp.Items.Add(new ListItem(Constant.UI.admin_Category, Constant.DSC.IdRootProductCategory.ToString()));
             ProductCategoryBLL ncBll = new ProductCategoryBLL();
             IList<PNK_ProductCategory> lst = ncBll.GetList(Constant.DB.LangId, string.Empty, 1, 300, out totalrow);
-            
+
             //Loại bỏ những galleryCategory thuộc nhóm Gallery có Id=64
             lst = lst.Where(x => x.ParentId == DBConvert.ParseInt(ConfigurationManager.AppSettings["parentIdContact"])
             || x.ProductCategoryDesc.Id == DBConvert.ParseInt(ConfigurationManager.AppSettings["parentIdContact"])).ToList();
@@ -735,7 +775,19 @@ namespace Cb.Web.Admin.Pages.Gallerys
             if (Page.IsValid)
             {
                 SaveProduct();
-                string url = LinkHelper.GetAdminMsgLink("gallery", categoryId, "save");
+
+                //swich page
+                switch (Utils.GetParameter("page", "home"))
+                {
+                    case Constant.UI.edit_picture_page:
+                        getLinkByPageName = Constant.UI.picture_page;
+                        break;
+                    case Constant.UI.edit_video_page:
+                        getLinkByPageName = Constant.UI.video_page;
+                        break;
+                }
+
+                string url = LinkHelper.GetAdminMsgLink(getLinkByPageName, categoryId, "save");
                 Response.Redirect(url);
             }
         }
