@@ -45,69 +45,77 @@ namespace Cb.Web.Pages.BookingManagement
 
         private void SendEmailTempate(PNK_Booking obj)
         {
-            string companyName = string.Empty, companyEmail = string.Empty, companyPhone = string.Empty, companyAddress = string.Empty
-                , companyWebsite = string.Empty, companyFax = string.Empty;
-
-            ConfigurationBLL pcBll = new ConfigurationBLL();
-            IList<PNK_Configuration> lst = pcBll.GetList();
-            if (lst != null && lst.Count > 0)
+            try
             {
-                foreach (PNK_Configuration item in lst)
+                string companyName = string.Empty, companyEmail = string.Empty, companyPhone = string.Empty, companyAddress = string.Empty
+                      , companyWebsite = string.Empty, companyFax = string.Empty;
+
+                ConfigurationBLL pcBll = new ConfigurationBLL();
+                IList<PNK_Configuration> lst = pcBll.GetList();
+                if (lst != null && lst.Count > 0)
                 {
-                    if (item.Key_name == Constant.Configuration.config_company_name_vi)
+                    foreach (PNK_Configuration item in lst)
                     {
-                        companyName = item.Value_name;
-                    }
-                    if (item.Key_name == Constant.Configuration.email)
-                    {
-                        companyEmail = item.Value_name;
-                    }
-                    if (item.Key_name == Constant.Configuration.phone)
-                    {
-                        companyPhone = item.Value_name;
-                    }
-                    if (item.Key_name == Constant.Configuration.config_address_vi)
-                    {
-                        companyAddress = item.Value_name;
-                    }
-                    if (item.Key_name == Constant.Configuration.sitename)
-                    {
-                        companyWebsite = item.Value_name;
-                    }
-                    if (item.Key_name == Constant.Configuration.fax)
-                    {
-                        companyFax = item.Value_name;
+                        if (item.Key_name == Constant.Configuration.config_company_name_vi)
+                        {
+                            companyName = item.Value_name;
+                        }
+                        if (item.Key_name == Constant.Configuration.email)
+                        {
+                            companyEmail = item.Value_name;
+                        }
+                        if (item.Key_name == Constant.Configuration.phone)
+                        {
+                            companyPhone = item.Value_name;
+                        }
+                        if (item.Key_name == Constant.Configuration.config_address_vi)
+                        {
+                            companyAddress = item.Value_name;
+                        }
+                        if (item.Key_name == Constant.Configuration.sitename)
+                        {
+                            companyWebsite = item.Value_name;
+                        }
+                        if (item.Key_name == Constant.Configuration.fax)
+                        {
+                            companyFax = item.Value_name;
+                        }
                     }
                 }
-            }
 
-            string path = Request.PhysicalApplicationPath;
-            string strHtml = WebUtils.GetMailTemplate(Path.Combine(path, "TemplateMail/Booking.html"));
-            string body = string.Format(strHtml,
-                        companyName,//0
-                        obj.FirstName,//1
-                        obj.LastName,//2
-                        obj.Country,//3
-                        obj.City,//4
-                        obj.PhoneNumber,//5
-                        obj.Email,//6
-                        obj.PickUpLocation,//7
-                        DateTime.Now,//8
-                        obj.RequestTour,//9
-                        obj.ExpectedDepartureDate,//10
-                        obj.NumberOfAduts,//11                  
-                        obj.NumberOfChildren,//12
-                        obj.NumberOfInfant,//13
-                        obj.Total,//14
-                        obj.PaymentMethod,//15
-                        companyAddress,//16
-                        companyEmail,//17
-                        companyWebsite,//18
-                        companyPhone,//19
-                        companyFax,//20
-                        obj.PaymentStatus//21
-               );
-            WebUtils.SendEmail("Contact", obj.Email, string.Empty, body);
+                string path = Request.PhysicalApplicationPath;
+                string strHtml = WebUtils.GetMailTemplate(Path.Combine(path, "TemplateMail/Booking.html"));
+                string body = string.Format(strHtml,
+                            companyName,//0
+                            obj.FirstName,//1
+                            obj.LastName,//2
+                            obj.Country,//3
+                            obj.City,//4
+                            obj.PhoneNumber,//5
+                            obj.Email,//6
+                            obj.PickUpLocation,//7
+                            DateTime.Now,//8
+                            obj.RequestTour,//9
+                            obj.ExpectedDepartureDate,//10
+                            obj.NumberOfAduts,//11                  
+                            obj.NumberOfChildren,//12
+                            obj.NumberOfInfant,//13
+                            obj.Total,//14
+                            obj.PaymentMethod,//15
+                            companyAddress,//16
+                            companyEmail,//17
+                            companyWebsite,//18
+                            companyPhone,//19
+                            companyFax,//20
+                            obj.PaymentStatus//21
+                   );
+
+                WebUtils.SendEmail("Contact", obj.Email, string.Empty, body);
+            }
+            catch (Exception ex)
+            {
+                Write2Log.WriteLogs("BookingResutl", "SendEmailTempate", ex.Message);
+            }
         }
 
         public string POSTRequest(string URL, string postData)
@@ -161,7 +169,7 @@ namespace Cb.Web.Pages.BookingManagement
             }
             catch (Exception ex)
             {
-                Write2Log.WriteLogs("block_booking", "POSTRequest", ex.Message);
+                Write2Log.WriteLogs("BookingResutl", "POSTRequest", ex.Message);
             }
 
             return responseData;

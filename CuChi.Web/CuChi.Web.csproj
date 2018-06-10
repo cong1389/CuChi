@@ -126,11 +126,15 @@
     <Reference Include="Microsoft.Practices.Unity.Configuration">
       <HintPath>Refferrent\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\CyclingVietNam\Source\Referrences\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Obout.Ajax.UI, Version=2.13.925.3, Culture=neutral, PublicKeyToken=24f3c5cea456f322, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="SharpRaven, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpRaven.2.2.0\lib\net40\SharpRaven.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -539,6 +543,7 @@
     <Content Include="robots.txt" />
     <Content Include="Controls\footer.ascx" />
     <Content Include="Controls\top_menu.ascx" />
+    <Content Include="Scripts\payment_form.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Styles\custom.js" />
     <Content Include="Styles\jquery.package.js" />
@@ -1073,6 +1078,7 @@
     <Compile Include="Pages\SearchManagement\search.ascx.designer.cs">
       <DependentUpon>search.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Security.cs" />
     <Compile Include="Template.Master.cs">
       <DependentUpon>Template.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1176,6 +1182,7 @@
     <Content Include="Admin\Components\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
     <Content Include="Admin\Components\simple-line-icons\fonts\Simple-Line-Iconsd41d.eot" />
     <Content Include="Admin\Upload.ashx" />
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\cyling.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

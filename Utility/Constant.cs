@@ -258,6 +258,18 @@ namespace Cb.Utility
             public const string validateEmail = "^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$";
             public const string validateNumber = "^[-]?\\d*\\.?\\d*$";
         }
+
+        public static class Payment
+        {
+            public const string ACCESSS_KEY = "28008ef181b3419f950b41c7cad361f1d9caa18f5c91487aaadb83a9fc44581318e3e330bdef4e2da86c666712fb80f672931f2b3acd47b38cc99ad59dc43656d71e918c6965452681a2ac6752873d6ba0543374d7f146ea8adf69584729143163ac69a49b3c4411a5cb09465d4f2b76b44aea3e59ec4beca49c9726b48f6bd3";
+            public const string PROFILE_ID = "A48ED58F-F760-4E5A-9700-A006C390529B";
+            //public const string TRANSACTION_UUID = "";
+            public const string SIGNED_FIELD_NAMES = "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency";
+            public const string UNSIGNED_FIELD_NAMES = "";
+            //public const string SIGNED_DATE_TIME = "";
+            public const string LOCALE = "en";
+
+        }
     }
 
     public enum RoleType
